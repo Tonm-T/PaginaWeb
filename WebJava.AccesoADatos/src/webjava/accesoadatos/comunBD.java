@@ -12,10 +12,10 @@ public class comunBD {
     
     static int TIPODB = TipoDB.SQLSERVER;
     
-    static String connectionUrlSqlServer = "jdbc:sqlserver://localhost;"
-            + "database=CatalogoEmpresasDB;"
-            + "user=JavaUser;"
-            + "password=#Modulo16;"
+    static String connectionUrlSqlServer = "jdbc:sqlserver://showmesv.mssql.somee.com;"
+            + "database=showmesv;"
+            + "user=Tony_SQLLogin_1;"
+            + "password=48buosygqj;"
             + "loginTimeout=30;encrypt=false;trustServerCertificate=false";
     
     public static Connection obtenerConexion() throws SQLException {

@@ -1,6 +1,3 @@
-create database ShowMe;
-
- use ShowMe;
 
  CREATE TABLE Categorias(
 Id INT NOT NULL IDENTITY(1,1),
