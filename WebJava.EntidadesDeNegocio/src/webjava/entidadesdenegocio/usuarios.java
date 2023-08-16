@@ -1,5 +1,6 @@
 package webjava.entidadesdenegocio;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -11,7 +12,7 @@ public class usuarios {
     private String login;
     private String password;
     private byte estatus;
-    private Date fecha;
+    private LocalDate fecha;
     private int top_aux;
     private String confirmPassword_aux;
     private rol rol;
@@ -19,7 +20,7 @@ public class usuarios {
     public usuarios() {
     }
 
-    public usuarios(int id, int rolid, String nombre, String apellido, String login, String password, byte estatus, Date fecha, int top_aux, String confirmPassword_aux, rol rol) {
+    public usuarios(int id, int rolid, String nombre, String apellido, String login, String password, byte estatus, LocalDate fecha, int top_aux, String confirmPassword_aux, rol rol) {
         this.id = id;
         this.rolid = rolid;
         this.nombre = nombre;
@@ -89,11 +90,11 @@ public class usuarios {
         this.estatus = estatus;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -119,5 +120,12 @@ public class usuarios {
 
     public void setRol(rol rol) {
         this.rol = rol;
+    }
+
+   
+    
+      public class EstatusUsuario{
+        public static final byte ACTIVO = 1;
+        public static final byte INACTIVO = 2;
     }
 }
