@@ -1,3 +1,9 @@
+<%-- 
+    Document   : footerBody
+    Created on : 21 ago. 2023, 1:26:33 p. m.
+    Author     : tom19
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
