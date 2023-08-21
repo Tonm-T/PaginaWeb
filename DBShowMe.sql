@@ -6,10 +6,17 @@ Clasificacion VARCHAR (50) NOT NULL,
 PRIMARY KEY (Id)
 );
 GO
+CREATE TABLE Comentarios(
+Id INT NOT NULL IDENTITY(1,1),
+Contenido VARCHAR (200) NOT NULL,
+PRIMARY KEY (Id)
+);
+GO
 CREATE TABLE Blogs(
 Id INT NOT NULL IDENTITY(1,1),
 Autor  varchar(100) not null,
 IdCategorias INT NOT NULL,
+IdComentarios INT NOT NULL,
 Nombre VARCHAR (100) NOT NULL,
 Descripcion VARCHAR (200) NOT NULL,
 Contenido VARCHAR (4000) NOT NULL,
@@ -17,6 +24,7 @@ FechaCreacion VARCHAR (20) NOT NULL,
 ImagenDescripcion VARCHAR (500) NOT NULL,
 ImagenContenido VARCHAR (500) NOT NULL,
 FOREIGN KEY (IdCategorias) REFERENCES Categorias (Id),
+FOREIGN KEY (IdComentarios) REFERENCES Comentarios (Id),
 PRIMARY KEY (Id)
 );
 GO
