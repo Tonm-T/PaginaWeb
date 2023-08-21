@@ -5,6 +5,7 @@ import java.util.Date;
 public class blogs {
     private int id;
     private int categoriasid;
+    private int cometariosid;
     private String autor;
     private String nombre;
     private String descripcion;
@@ -14,13 +15,15 @@ public class blogs {
     private String imagencontenido;
     private int top_aux;
     private categorias categorias;
+    private comentarios comentarios;
 
     public blogs() {
-    }    
+    }
 
-    public blogs(int id, int categoriasid, String autor, String nombre, String descripcion, String contenido, Date fechacreacion, String imagendescripcion, String imagencontenido, int top_aux, categorias categorias) {
+    public blogs(int id, int categoriasid, int cometariosid, String autor, String nombre, String descripcion, String contenido, Date fechacreacion, String imagendescripcion, String imagencontenido, int top_aux, categorias categorias, comentarios comentarios) {
         this.id = id;
         this.categoriasid = categoriasid;
+        this.cometariosid = cometariosid;
         this.autor = autor;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -30,6 +33,7 @@ public class blogs {
         this.imagencontenido = imagencontenido;
         this.top_aux = top_aux;
         this.categorias = categorias;
+        this.comentarios = comentarios;
     }
 
     public int getId() {
@@ -46,6 +50,14 @@ public class blogs {
 
     public void setCategoriasid(int categoriasid) {
         this.categoriasid = categoriasid;
+    }
+
+    public int getCometariosid() {
+        return cometariosid;
+    }
+
+    public void setCometariosid(int cometariosid) {
+        this.cometariosid = cometariosid;
     }
 
     public String getAutor() {
@@ -118,5 +130,13 @@ public class blogs {
 
     public void setCategorias(categorias categorias) {
         this.categorias = categorias;
+    }
+
+    public comentarios getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(comentarios comentarios) {
+        this.comentarios = comentarios;
     }
 }

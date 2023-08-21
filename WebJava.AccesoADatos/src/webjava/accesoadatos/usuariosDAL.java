@@ -78,7 +78,7 @@ public class usuariosDAL {
         boolean existe = existeLogin(pUsuario);
         if (existe == false) {
             try (Connection conn = comunBD.obtenerConexion();) {
-                sql = "INSERT INTO Usuario(IdRol,Nombre,Apellido,Login,Pass,Estatus,FechaRegistro) VALUES(?,?,?,?,?,?,?)";
+                sql = "INSERT INTO Usuario(Idrol,Nombre,Apellido,Login,Pass,Estatus,FechaRegistro) VALUES(?,?,?,?,?,?,?)";
                 try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
                     ps.setInt(1, pUsuario.getRolid());
                     ps.setString(2, pUsuario.getNombre());
