@@ -13,7 +13,7 @@ public class rolDAL {
         String sql;
         sql = "SELECT ";
         if (pRol.getTop_aux() > 0 && comunBD.TIPODB == comunBD.TipoDB.SQLSERVER) {            
-            sql += "TOP " + pRol.getTop_aux() + " ";
+            sql += "TOP" + pRol.getTop_aux() + " ";
         }
         sql += (obtenerCampos() + " FROM Rol r");
         return sql;
@@ -31,7 +31,7 @@ public class rolDAL {
         int result;
         String sql;
         try (Connection conn = comunBD.obtenerConexion();) { 
-            sql = "INSERT INTO Rol(Nombre) VALUES(?)";
+            sql = "INSERT INTO rol(Nombre) VALUES(?)";
             try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
                 ps.setString(1, pRol.getNombre());
                 result = ps.executeUpdate();
