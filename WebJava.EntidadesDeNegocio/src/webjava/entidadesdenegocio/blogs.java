@@ -15,12 +15,12 @@ public class blogs {
     private String imagencontenido;
     private int top_aux;
     private categorias categorias;
-    private comentarios comentarios;
+    private comentario comentario;
 
     public blogs() {
     }
 
-    public blogs(int id, int categoriasid, int cometariosid, String autor, String nombre, String descripcion, String contenido, Date fechacreacion, String imagendescripcion, String imagencontenido, int top_aux, categorias categorias, comentarios comentarios) {
+    public blogs(int id, int categoriasid, int cometariosid, String autor, String nombre, String descripcion, String contenido, Date fechacreacion, String imagendescripcion, String imagencontenido, int top_aux, categorias categorias, comentario comentarios) {
         this.id = id;
         this.categoriasid = categoriasid;
         this.cometariosid = cometariosid;
@@ -33,7 +33,7 @@ public class blogs {
         this.imagencontenido = imagencontenido;
         this.top_aux = top_aux;
         this.categorias = categorias;
-        this.comentarios = comentarios;
+        this.comentario = comentario;
     }
 
     public int getId() {
@@ -132,11 +132,11 @@ public class blogs {
         this.categorias = categorias;
     }
 
-    public comentarios getComentarios() {
-        return comentarios;
+    public comentario getComentarios() {
+        return comentario;
     }
 
-    public void setComentarios(comentarios comentarios) {
-        this.comentarios = comentarios;
+    public void setComentarios(comentario comentarios) {
+        this.comentario = comentarios;
     }
 }
