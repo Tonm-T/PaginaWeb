@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package webjava.appweb.controllers;
 
 import java.io.IOException;
@@ -12,22 +8,36 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author tom19
- */
+import java.util.ArrayList;
+import webjava.accesoadatos.rolDAL;
+import webjava.entidadesdenegocio.*;
+import webjava.appweb.utils.*;
+
 @WebServlet(name = "historietasServlet", urlPatterns = {"/historietasServlet"})
 public class historietasServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private historietas obtenerHistorieta(HttpServletRequest request) {
+    String accion = Utilidad.getParameter(request, "accion", "index");
+    historietas historieta = new historietas();
+    historieta.setAutor(Utilidad.getParameter(request, "autor", ""));
+    historieta.setNombre(Utilidad.getParameter(request, "nombre", ""));
+    historieta.setDescripcion(Utilidad.getParameter(request, "descripcion", ""));
+    historieta.setPrecio(Utilidad.getParameter(request, "precio", ""));
+    historieta.setPrecioanterior(Utilidad.getParameter(request, "precioanterior", ""));
+    historieta.setLink(Utilidad.getParameter(request, "link", ""));
+    historieta.setEditorioal(Utilidad.getParameter(request, "editorial", ""));
+    historieta.setEdicion(Byte.parseByte(Utilidad.getParameter(request, "edicion", "")));
+    historieta.setFechapublicacion(accion);
+    historieta.setCantidadpag(Byte.parseByte(Utilidad.getParameter(request, "cantidadpg", "")));
+    historieta.setImagen(Utilidad.getParameter(request, "imagen", ""));
+    
+    if (accion.equals("index")) {
+        historieta.setTop_aux(Integer.parseInt(Utilidad.getParameter(request, "top_aux", "10")));
+        historieta.setTop_aux(historieta.getTop_aux() == 0 ? Integer.MAX_VALUE : historieta.getTop_aux());
+        }
+        return historieta;
+    }
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");

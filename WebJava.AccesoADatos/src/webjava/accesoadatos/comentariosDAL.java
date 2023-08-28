@@ -4,36 +4,36 @@ import java.util.*;
 import java.sql.*;
 import webjava.entidadesdenegocio.*;
 
-public class rolDAL {
+public class comentariosDAL {
      static String obtenerCampos() {
-        return "r.id, r.Nombre";
+    return "c,id,";
     }
     
-    private static String obtenerSelect(rol pRol) {
-        String sql;
-        sql = "SELECT ";
-        if (pRol.getTop_aux() > 0 && comunBD.TIPODB == comunBD.TipoDB.SQLSERVER) {            
-            sql += "TOP" + pRol.getTop_aux() + " ";
-        }
+    private static String obtenerSelect(comentario pComentario) {
+    String sql;
+    sql = "SELECT";
+    if (pComentario.getTop_aux() > 0 && comunBD.TIPODB == comunBD.TipoDB.SQLSERVER) {
+    sql += "TOP" + pComentario.getTop_aux() + " ";
+    }
         sql += (obtenerCampos() + " FROM Rol r");
         return sql;
     }
     
-    private static String agregarOrderBy(rol pRol) {
+    private static String agregarOrderBy(comentario pComentario) {
         String sql = " ORDER BY r.Id DESC";
-        if (pRol.getTop_aux() > 0 && comunBD.TIPODB == comunBD.TipoDB.MYSQL) {
-            sql += " LIMIT " + pRol.getTop_aux() + " ";
+        if (pComentario.getTop_aux() > 0 && comunBD.TIPODB == comunBD.TipoDB.MYSQL) {
+            sql += " LIMIT " + pComentario.getTop_aux() + " ";
         }
         return sql;
     }
     
-    public static int crear(rol pRol) throws Exception {
+    public static int crear(comentario pComentario) throws Exception {
         int result;
         String sql;
         try (Connection conn = comunBD.obtenerConexion();) { 
             sql = "INSERT INTO rol(Nombre) VALUES(?)";
             try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
-                ps.setString(1, pRol.getNombre());
+                ps.setString(1, pComentario.getContenido());
                 result = ps.executeUpdate();
                 ps.close();
             } catch (SQLException ex) {
@@ -46,14 +46,14 @@ public class rolDAL {
         return result;
     }
     
-    public static int modificar(rol pRol) throws Exception {
+     public static int modificar(comentario pComentario) throws Exception {
         int result;
         String sql;
         try (Connection conn = comunBD.obtenerConexion();) {
             sql = "UPDATE Rol SET Nombre=? WHERE Id=?";
             try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
-                ps.setString(1, pRol.getNombre());
-                ps.setInt(2, pRol.getId());
+                ps.setString(1, pComentario.getContenido());
+                ps.setInt(2, pComentario.getId());
                 result = ps.executeUpdate();
                 ps.close();
             } catch (SQLException ex) {
@@ -66,13 +66,13 @@ public class rolDAL {
         return result;
     }
     
-    public static int eliminar(rol pRol) throws Exception {
+    public static int eliminar(comentario pComentario) throws Exception {
         int result;
         String sql;
         try (Connection conn = comunBD.obtenerConexion();) {
             sql = "DELETE FROM Rol WHERE Id=?";
             try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
-                ps.setInt(1, pRol.getId());
+                ps.setInt(1, pComentario.getId());
                 result = ps.executeUpdate();
                 ps.close();
             } catch (SQLException ex) {
@@ -85,20 +85,20 @@ public class rolDAL {
         return result;
     } 
     
-    static int asignarDatosResultSet(rol pRol, ResultSet pResultSet, int pIndex) throws Exception {
+    static int asignarDatosResultSet(comentario pComentario, ResultSet pResultSet, int pIndex) throws Exception {
         pIndex++;
-        pRol.setId(pResultSet.getInt(pIndex));
+        pComentario.setId(pResultSet.getInt(pIndex));
         pIndex++;
-        pRol.setNombre(pResultSet.getString(pIndex));
+        pComentario.setContenido(pResultSet.getString(pIndex));
         return pIndex;
     }
     
-    private static void obtenerDatos(PreparedStatement pPS, ArrayList<rol> pRoles) throws Exception {
+    private static void obtenerDatos(PreparedStatement pPS, ArrayList<comentario> pComentarios) throws Exception {
         try (ResultSet resultSet = comunBD.obtenerResultSet(pPS);) {
             while (resultSet.next()) {
-                rol rol = new rol(); 
-                asignarDatosResultSet(rol, resultSet, 0);
-                pRoles.add(rol);
+                comentario comentarios = new comentario(); 
+                asignarDatosResultSet(comentarios, resultSet, 0);
+                pComentarios.add(comentarios);
             }
             resultSet.close();
         } catch (SQLException ex) {
@@ -106,15 +106,15 @@ public class rolDAL {
         }
     }
     
-    public static rol obtenerPorId(rol pRol) throws Exception {
-        rol rol = new rol();
-        ArrayList<rol> roles = new ArrayList();
+    public static comentario obtenerPorId(comentario pComentario) throws Exception {
+        comentario comentario = new comentario();
+        ArrayList<comentario> comentarios = new ArrayList();
         try (Connection conn = comunBD.obtenerConexion();) { 
-            String sql = obtenerSelect(pRol);
+            String sql = obtenerSelect(pComentario);
             sql += " WHERE r.Id=?";
             try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
-                ps.setInt(1, pRol.getId());
-                obtenerDatos(ps, roles);
+                ps.setInt(1, pComentario.getId());
+                obtenerDatos(ps, comentarios);
                 ps.close();
             } catch (SQLException ex) {
                 throw ex;
@@ -125,20 +125,20 @@ public class rolDAL {
             throw ex;
         }
         
-        if (roles.size() > 0) {
-            rol = roles.get(0);
+        if (comentarios.size() > 0) {
+            comentario = comentarios.get(0);
         }
         
-        return rol;
+        return comentario;
     }
     
-    public static ArrayList<rol> obtenerTodos() throws Exception {
-        ArrayList<rol> roles = new ArrayList<>();
+    public static ArrayList<comentario> obtenerTodos() throws Exception {
+        ArrayList<comentario> comentarios = new ArrayList<>();
         try (Connection conn = comunBD.obtenerConexion();) {
-            String sql = obtenerSelect(new rol());
-            sql += agregarOrderBy(new rol());
+            String sql = obtenerSelect(new comentario());
+            sql += agregarOrderBy(new comentario());
             try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
-                obtenerDatos(ps, roles);
+                obtenerDatos(ps, comentarios);
                 ps.close();
             } catch (SQLException ex) {
                 throw ex;
@@ -149,41 +149,41 @@ public class rolDAL {
             throw ex;
         }
         
-        return roles;
+        return comentarios;
     }
     
-    static void querySelect(rol pRol, comunBD.utilQuery pUtilQuery) throws SQLException {
+    static void querySelect(comentario pComentario, comunBD.utilQuery pUtilQuery) throws SQLException {
         PreparedStatement statement = pUtilQuery.getStatement();
-        if (pRol.getId() > 0) {
+        if (pComentario.getId() > 0) {
             pUtilQuery.AgregarNumWhere(" r.Id=? ");
             if (statement != null) { 
-                statement.setInt(pUtilQuery.getNumWhere(), pRol.getId()); 
+                statement.setInt(pUtilQuery.getNumWhere(), pComentario.getId()); 
             }
         }
 
-        if (pRol.getNombre() != null && pRol.getNombre().trim().isEmpty() == false) {
+        if (pComentario.getContenido()!= null && pComentario.getContenido().trim().isEmpty() == false) {
             pUtilQuery.AgregarNumWhere(" r.Nombre LIKE ? "); 
             if (statement != null) {
-                statement.setString(pUtilQuery.getNumWhere(), "%" + pRol.getNombre() + "%"); 
+                statement.setString(pUtilQuery.getNumWhere(), "%" + pComentario.getContenido()+ "%"); 
             }
         }
     }
     
-    public static ArrayList<rol> buscar(rol pRol) throws Exception {
-        ArrayList<rol> roles = new ArrayList();
+    public static ArrayList<comentario> buscar(comentario pComentario) throws Exception {
+        ArrayList<comentario> comentarios = new ArrayList();
         try (Connection conn = comunBD.obtenerConexion();) {
-            String sql = obtenerSelect(pRol);
+            String sql = obtenerSelect(pComentario);
             comunBD comundb = new comunBD();
             comunBD.utilQuery utilQuery = comundb.new utilQuery(sql, null, 0); 
-            querySelect(pRol, utilQuery);
+            querySelect(pComentario, utilQuery);
             sql = utilQuery.getSQL(); 
-            sql += agregarOrderBy(pRol);
+            sql += agregarOrderBy(pComentario);
             try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
                 utilQuery.setStatement(ps);
                 utilQuery.setSQL(null);
                 utilQuery.setNumWhere(0); 
-                querySelect(pRol, utilQuery);
-                obtenerDatos(ps, roles);
+                querySelect(pComentario, utilQuery);
+                obtenerDatos(ps, comentarios);
                 ps.close();
             } catch (SQLException ex) {
                 throw ex;
@@ -193,6 +193,7 @@ public class rolDAL {
         catch (SQLException ex) {
             throw ex;
         }
-        return roles;
+        return comentarios;
     }
 }
+

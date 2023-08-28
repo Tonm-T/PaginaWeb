@@ -10,9 +10,9 @@ public class historietas {
     private String precioanterior;
     private String link;
     private String editorioal;
-    private int edicion;
+    private byte edicion;
     private String fechapublicacion;
-    private int cantidadpag;
+    private byte cantidadpag;
     private String imagen;
     private int top_aux;
     private historietas historietas;
@@ -20,7 +20,7 @@ public class historietas {
     public historietas() {
     }
 
-    public historietas(int id, String autor, int categoriasid, String nombre, String descripcion, String precio, String precioanterior, String link, String editorioal, int edicion, String fechapublicacion, int cantidadpag, String imagen, int top_aux, historietas historietas) {
+    public historietas(int id, String autor, int categoriasid, String nombre, String descripcion, String precio, String precioanterior, String link, String editorioal, byte edicion, String fechapublicacion, byte cantidadpag, String imagen, int top_aux, historietas historietas) {
         this.id = id;
         this.autor = autor;
         this.categoriasid = categoriasid;
@@ -110,11 +110,11 @@ public class historietas {
         this.editorioal = editorioal;
     }
 
-    public int getEdicion() {
+    public byte getEdicion() {
         return edicion;
     }
 
-    public void setEdicion(int edicion) {
+    public void setEdicion(byte edicion) {
         this.edicion = edicion;
     }
 
@@ -126,11 +126,11 @@ public class historietas {
         this.fechapublicacion = fechapublicacion;
     }
 
-    public int getCantidadpag() {
+    public byte getCantidadpag() {
         return cantidadpag;
     }
 
-    public void setCantidadpag(int cantidadpag) {
+    public void setCantidadpag(byte cantidadpag) {
         this.cantidadpag = cantidadpag;
     }
 
