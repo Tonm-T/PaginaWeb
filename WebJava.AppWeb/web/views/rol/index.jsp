@@ -10,8 +10,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <jsp:include page="/Views/Shared/title.jsp" />
     </head>
     <body>
         <h1>Hello World!</h1>
     </body>
+    
+      <h1 class="text-3xl font-bold underline">
+    Hello world!
+  </h1>
 </html>
