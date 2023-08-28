@@ -6,7 +6,7 @@ import webjava.entidadesdenegocio.*;
 
 public class rolDAL {
      static String obtenerCampos() {
-        return "r.Id, r.Nombre";
+        return "r.id, r.Nombre";
     }
     
     private static String obtenerSelect(rol pRol) {
