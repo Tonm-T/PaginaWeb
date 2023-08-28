@@ -1,45 +1,46 @@
 package webjava.appweb.controllers;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServlet;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import webjava.accesoadatos.comentariosDAL;
+import webjava.accesoadatos.categoriasDAL;
+import jakarta.servlet.annotation.WebServlet;
 import webjava.appweb.utils.SessionUser;
-import webjava.appweb.utils.Utilidad;
-import webjava.entidadesdenegocio.comentario;
+import webjava.entidadesdenegocio.categoria;
+import webjava.appweb.utils.*;
 
 
-@WebServlet(name = "comentariosServlet", urlPatterns = {"/comentariosServlet"})
-public class comentariosServlet extends HttpServlet {
+
+@WebServlet(name = "categoriaServlet", urlPatterns = {"/categoriaServlet"})
+public class categoriaServlet extends HttpServlet{
     
-    private comentario obtenerComentarios(HttpServletRequest request) {
+    private categoria obtenerCategoria(HttpServletRequest request) {
     String accion = Utilidad.getParameter(request, "accion", "index");
-    comentario Comentario = new comentario();
+    categoria Categoria = new categoria();
     if (accion.equals("create") == false) {
-        Comentario.setId(Integer.parseInt(Utilidad.getParameter(request, "id", "0")));
+        Categoria.setId(Integer.parseInt(Utilidad.getParameter(request, "id", "0")));
     }
-    Comentario.setContenido(Utilidad.getParameter(request, "contenido", ""));
+    Categoria.setNombre(Utilidad.getParameter(request, "nombre", ""));
         if (accion.equals("index")) {
-            Comentario.setTop_aux(Integer.parseInt(Utilidad.getParameter(request, "top_aux", "10")));
-            Comentario.setTop_aux(Comentario.getTop_aux() == 0 ? Integer.MAX_VALUE : Comentario.getTop_aux());
+            Categoria.setTop_aux(Integer.parseInt(Utilidad.getParameter(request, "top_aux", "10")));
+            Categoria.setTop_aux(Categoria.getTop_aux() == 0 ? Integer.MAX_VALUE : Categoria.getTop_aux());
         }
         
-        return Comentario;
+        return Categoria;
     }
     
-   private void doGetRequestIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void doGetRequestIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            comentario Comentario = new comentario();
-            Comentario.setTop_aux(10);
-            ArrayList<comentario> comentarios = comentariosDAL.buscar(Comentario);
-            request.setAttribute("comentarios", comentarios);
-            request.setAttribute("top_aux", Comentario.getTop_aux());             
-            request.getRequestDispatcher("Views/Comentario/index.jsp").forward(request, response);
+            categoria Categoria = new categoria();
+            Categoria.setTop_aux(10);
+            ArrayList<categoria> categorias = categoriasDAL.buscar(Categoria);
+            request.setAttribute("categorias", categorias);
+            request.setAttribute("top_aux", Categoria.getTop_aux());             
+            request.getRequestDispatcher("Views/Categoria/index.jsp").forward(request, response);
         } catch (Exception ex) {
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
@@ -47,24 +48,24 @@ public class comentariosServlet extends HttpServlet {
     
     private void doPostRequestIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            comentario Comentario = obtenerComentarios(request);
-            ArrayList<comentario> comentario = comentariosDAL.buscar(Comentario);
-            request.setAttribute("comentario", comentario);
-            request.setAttribute("top_aux", Comentario.getTop_aux());
-            request.getRequestDispatcher("Views/Comentario/index.jsp").forward(request, response);
+            categoria Categoria = obtenerCategoria(request);
+            ArrayList<categoria> categorias = categoriasDAL.buscar(Categoria);
+            request.setAttribute("categorias", categorias);
+            request.setAttribute("top_aux", Categoria.getTop_aux());
+            request.getRequestDispatcher("Views/Categoria/index.jsp").forward(request, response);
         } catch (Exception ex) { 
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
     }
     
     private void doGetRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("Views/Comentario/create.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/Categoria/create.jsp").forward(request, response);
     }
     
     private void doPostRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            comentario Comentario = obtenerComentarios(request);
-            int result = comentariosDAL.crear(Comentario);
+            categoria Categoria = obtenerCategoria(request);
+            int result = categoriasDAL.crear(Categoria);
             if (result != 0) {
                 request.setAttribute("accion", "index");
                 doGetRequestIndex(request, response);
@@ -78,12 +79,12 @@ public class comentariosServlet extends HttpServlet {
     
     private void requestObtenerPorId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            comentario Comentario = obtenerComentarios(request);
-            comentario comentario_result = comentariosDAL.obtenerPorId(Comentario);
-            if (comentario_result.getId() > 0) {
-                request.setAttribute("comentario", comentario_result);
+            categoria Categoria = obtenerCategoria(request);
+            categoria categoria_result = categoriasDAL.obtenerPorId(Categoria);
+            if (categoria_result.getId() > 0) {
+                request.setAttribute("rol", categoria_result);
             } else {
-                Utilidad.enviarError("El Id:" + Comentario.getId() + " no existe en la tabla de Rol", request, response);
+                Utilidad.enviarError("El Id:" + Categoria.getId() + " no existe en la tabla de Categoria", request, response);
             }
         } catch (Exception ex) {
             Utilidad.enviarError(ex.getMessage(), request, response);
@@ -92,13 +93,13 @@ public class comentariosServlet extends HttpServlet {
     
     private void doGetRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Comentario/edit.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/Categoria/edit.jsp").forward(request, response);
     }
     
     private void doPostRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            comentario Comentario = obtenerComentarios(request);
-            int result = comentariosDAL.modificar(Comentario);
+            categoria Categoria = obtenerCategoria(request);
+            int result = categoriasDAL.modificar(Categoria);
             if (result != 0) {
                 request.setAttribute("accion", "index");
                 doGetRequestIndex(request, response);
@@ -113,18 +114,18 @@ public class comentariosServlet extends HttpServlet {
     
     private void doGetRequestDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Comentario/details.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/Categoria/details.jsp").forward(request, response);
     }
     
     private void doGetRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Comentario/delete.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/Categoria/delete.jsp").forward(request, response);
     }
     
      private void doPostRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            comentario Comentario = obtenerComentarios(request);
-            int result = comentariosDAL.eliminar(Comentario);
+            categoria Categoria = obtenerCategoria(request);
+            int result = categoriasDAL.eliminar(Categoria);
             if (result != 0) {
                 request.setAttribute("accion", "index");
                 doGetRequestIndex(request, response);

@@ -9,7 +9,7 @@ public class categoriasDAL {
     return "c.id, c.nombre, c.clasificacion";
     }
     
-    private static String obtenerSelect (categorias pCategorias) {
+    private static String obtenerSelect (categoria pCategorias) {
     String sql;
     sql = "SELECT";
     if (pCategorias.getTop_aux() > 0 && comunBD.TIPODB == comunBD.TipoDB.SQLSERVER) {
@@ -18,7 +18,7 @@ public class categoriasDAL {
     sql += (obtenerCampos() + " FROM categorias c");
         return sql;
   }
-    private static String agregarOrderBy (categorias pCategorias) {
+    private static String agregarOrderBy (categoria pCategorias) {
     String sql = "ORDER BY c.id DESC";
     if (pCategorias.getTop_aux() > 0 && comunBD.TIPODB == comunBD.TipoDB.SQLSERVER) {
     sql += "LIMIT" + pCategorias.getTop_aux() + " ";
@@ -26,7 +26,7 @@ public class categoriasDAL {
     return sql;
     }
     
-    public static int crear (categorias pCategorias) throws Exception {
+    public static int crear (categoria pCategorias) throws Exception {
     int result = 0;
     String sql;
     try (Connection conn = comunBD.obtenerConexion();) {
@@ -44,7 +44,7 @@ public class categoriasDAL {
         return result;
     }
     
-    public static int modificar (categorias pCategorias) throws Exception {
+    public static int modificar (categoria pCategorias) throws Exception {
     int result ;
     String sql;
     try (Connection conn = comunBD.obtenerConexion();) {
@@ -64,7 +64,7 @@ public class categoriasDAL {
         return result;
     }
     
-    public static int eliminar (categorias pCategorias) throws Exception {
+    public static int eliminar (categoria pCategorias) throws Exception {
     int result;
     String sql;
     try (Connection conn = comunBD.obtenerConexion();) {
@@ -83,7 +83,7 @@ public class categoriasDAL {
         return result;
     }
     
-      static int asignarDatosResultSet(categorias pCategorias, ResultSet pResultSet, int pIndex) throws Exception {
+      static int asignarDatosResultSet(categoria pCategorias, ResultSet pResultSet, int pIndex) throws Exception {
         pIndex++;
         pCategorias.setId(pResultSet.getInt(pIndex));
         pIndex++;
@@ -91,10 +91,10 @@ public class categoriasDAL {
         return pIndex;
     }
       
-      private static void obtenerDatos(PreparedStatement pPS, ArrayList<categorias> pCategorias) throws Exception {
+      private static void obtenerDatos(PreparedStatement pPS, ArrayList<categoria> pCategorias) throws Exception {
         try (ResultSet resultSet = comunBD.obtenerResultSet(pPS);) {
             while (resultSet.next()) {
-                categorias categoria = new categorias(); 
+                categoria categoria = new categoria(); 
                 asignarDatosResultSet(categoria, resultSet, 0);
                 pCategorias.add(categoria);
             }
@@ -104,9 +104,9 @@ public class categoriasDAL {
         }
     }
     
-    public static categorias obtenerPorId(categorias PCategorias) throws Exception {
-        categorias Categorias = new categorias();
-        ArrayList<categorias> categorias = new ArrayList();
+    public static categoria obtenerPorId(categoria PCategorias) throws Exception {
+        categoria Categorias = new categoria();
+        ArrayList<categoria> categorias = new ArrayList();
         try (Connection conn = comunBD.obtenerConexion();) { 
             String sql = obtenerSelect(PCategorias);
             sql += " WHERE r.Id=?";
@@ -130,7 +130,7 @@ public class categoriasDAL {
         return Categorias;
     }
     
-     static void querySelect(categorias pCategorias, comunBD.utilQuery pUtilQuery) throws SQLException {
+     static void querySelect(categoria pCategorias, comunBD.utilQuery pUtilQuery) throws SQLException {
         PreparedStatement statement = pUtilQuery.getStatement();
         if (pCategorias.getId() > 0) {
             pUtilQuery.AgregarNumWhere(" r.Id=? ");
@@ -147,8 +147,8 @@ public class categoriasDAL {
         }
     }
     
-    public static ArrayList<categorias> buscar(categorias pCategorias) throws Exception {
-        ArrayList<categorias> categoria = new ArrayList();
+    public static ArrayList<categoria> buscar(categoria pCategorias) throws Exception {
+        ArrayList<categoria> categoria = new ArrayList();
         try (Connection conn = comunBD.obtenerConexion();) {
             String sql = obtenerSelect(pCategorias);
             comunBD comundb = new comunBD();

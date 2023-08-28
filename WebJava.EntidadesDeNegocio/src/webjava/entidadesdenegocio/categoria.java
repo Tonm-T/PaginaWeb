@@ -1,21 +1,23 @@
 package webjava.entidadesdenegocio;
 
-public class categorias {
+import java.util.ArrayList;
+
+public class categoria {
     private int id;
     private String nombre;
     private String clasificacion;
     private int top_aux;
-    private categorias categorias;
+    private ArrayList<categoria> categoria;
 
-    public categorias() {
+    public categoria() {
     }
 
-    public categorias(int id, String nombre, String clasificacion, int top_aux, categorias categorias) {
+    public categoria(int id, String nombre, String clasificacion, int top_aux, ArrayList<categoria> categoria) {
         this.id = id;
         this.nombre = nombre;
         this.clasificacion = clasificacion;
         this.top_aux = top_aux;
-        this.categorias = categorias;
+        this.categoria = categoria;
     }
 
     public int getId() {
@@ -50,12 +52,12 @@ public class categorias {
         this.top_aux = top_aux;
     }
 
-    public categorias getCategorias() {
-        return categorias;
+    public ArrayList<categoria> getCategoria() {
+        return categoria;
     }
 
-    public void setCategorias(categorias categorias) {
-        this.categorias = categorias;
+    public void setCategoria(ArrayList<categoria> categoria) {
+        this.categoria = categoria;
     }
     
     
