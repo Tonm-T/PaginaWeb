@@ -1,7 +1,6 @@
 package webjava.appweb.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.ArrayList;
-import webjava.accesoadatos.rolDAL;
+import webjava.accesoadatos.historietasDAL;
 import webjava.entidadesdenegocio.*;
 import webjava.appweb.utils.*;
 
@@ -38,60 +37,109 @@ public class historietasServlet extends HttpServlet {
         return historieta;
     }
     
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet historietasServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet historietasServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+      private void doGetRequestIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            historietas historieta = new historietas();
+            historieta.setTop_aux(10);
+            ArrayList<historietas> historietas = historietasDAL.buscar(historieta);
+            request.setAttribute("usuarios", historietas);
+            request.setAttribute("top_aux", historieta.getTop_aux());
+            request.getRequestDispatcher("Views/Usuario/index.jsp").forward(request, response);
+        } catch (Exception ex) {
+            Utilidad.enviarError(ex.getMessage(), request, response);
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+      
+      private void doPostRequestIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            historietas historieta = obtenerHistorieta(request);
+            ArrayList<historietas> historietas = historietasDAL.buscar(historieta);
+            request.setAttribute("usuarios", historietas);
+            request.setAttribute("top_aux", historieta.getTop_aux());
+            request.getRequestDispatcher("Views/Usuario/index.jsp").forward(request, response);
+        } catch (Exception ex) {
+            Utilidad.enviarError(ex.getMessage(), request, response);
+        }
+    }
+     
+      private void doGetRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("Views/Usuario/create.jsp").forward(request, response);
+    }
+      
+       private void doPostRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            historietas historieta = obtenerHistorieta(request);
+            int result = historietasDAL.crear(historieta);
+            if (result != 0) {
+                request.setAttribute("accion", "index");
+                doGetRequestIndex(request, response);
+            } else {
+                Utilidad.enviarError("No se logro registrar un nuevo registro", request, response);
+            }
+        } catch (Exception ex) {
+            Utilidad.enviarError(ex.getMessage(), request, response);
+        }
+    }
+    
+     private void requestObtenerPorId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            historietas historieta = obtenerHistorieta(request);
+            historietas historieta_result = historietasDAL.obtenerPorId(historieta);
+            if (historieta_result.getId() > 0) {
+                historietas historiet = new historietas();
+                historiet.setId(historieta_result.getId());
+                historieta_result.setHistorietas(historietasDAL.obtenerPorId(historiet));
+                request.setAttribute("usuario", historieta_result);
+            } else {
+                Utilidad.enviarError("El Id:" + historieta_result.getId() + " no existe en la tabla de Usuario", request, response);
+            }
+        } catch (Exception ex) {
+            Utilidad.enviarError(ex.getMessage(), request, response);
+        }
+    }
+     
+     private void doGetRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        requestObtenerPorId(request, response);
+        request.getRequestDispatcher("Views/Usuario/edit.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    private void doPostRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            historietas historieta = obtenerHistorieta(request);
+            int result = historietasDAL.modificar(historieta);
+            if (result != 0) {
+                request.setAttribute("accion", "index");
+                doGetRequestIndex(request, response);
+            } else {
+                Utilidad.enviarError("No se logro actualizar el registro", request, response);
+            }
+        } catch (Exception ex) {
+            Utilidad.enviarError(ex.getMessage(), request, response);
+        }
+    }
+    
+    private void doGetRequestDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        requestObtenerPorId(request, response);
+        request.getRequestDispatcher("Views/Usuario/details.jsp").forward(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    private void doGetRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        requestObtenerPorId(request, response);
+        request.getRequestDispatcher("Views/Usuario/delete.jsp").forward(request, response);
+    }
+    
+      private void doPostRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            historietas historieta = obtenerHistorieta(request);
+            int result = historietasDAL.eliminar(historieta);
+            if (result != 0) {
+                request.setAttribute("accion", "index");
+                doGetRequestIndex(request, response);
+            } else {
+                Utilidad.enviarError("No se logro eliminar el registro", request, response);
+            }
+        } catch (Exception ex) {
+            Utilidad.enviarError(ex.getMessage(), request, response);
+        }
+    }
 }
