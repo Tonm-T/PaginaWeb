@@ -12,7 +12,7 @@ import webjava.accesoadatos.rolDAL;
 import webjava.entidadesdenegocio.rol;
 import webjava.appweb.utils.*;
 
-@WebServlet(name = "rolServlet", urlPatterns = {"/rolServlet"})
+@WebServlet(name = "rolServlet", urlPatterns = {"/rol"})
 public class rolServlet extends HttpServlet {
 
     private rol obtenerRol(HttpServletRequest request) {

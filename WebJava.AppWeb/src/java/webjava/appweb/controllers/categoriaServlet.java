@@ -13,39 +13,37 @@ import webjava.appweb.utils.SessionUser;
 import webjava.entidadesdenegocio.categoria;
 import webjava.appweb.utils.*;
 
+@WebServlet(name = "categoriaServlet", urlPatterns = {"/categoria"})
+public class categoriaServlet extends HttpServlet {
 
-
-@WebServlet(name = "categoriaServlet", urlPatterns = {"/categoriaServlet"})
-public class categoriaServlet extends HttpServlet{
-    
     private categoria obtenerCategoria(HttpServletRequest request) {
-    String accion = Utilidad.getParameter(request, "accion", "index");
-    categoria Categoria = new categoria();
-    if (accion.equals("create") == false) {
-        Categoria.setId(Integer.parseInt(Utilidad.getParameter(request, "id", "0")));
-    }
-    Categoria.setNombre(Utilidad.getParameter(request, "nombre", ""));
+        String accion = Utilidad.getParameter(request, "accion", "index");
+        categoria Categoria = new categoria();
+        if (accion.equals("create") == false) {
+            Categoria.setId(Integer.parseInt(Utilidad.getParameter(request, "id", "0")));
+        }
+        Categoria.setNombre(Utilidad.getParameter(request, "nombre", ""));
         if (accion.equals("index")) {
             Categoria.setTop_aux(Integer.parseInt(Utilidad.getParameter(request, "top_aux", "10")));
             Categoria.setTop_aux(Categoria.getTop_aux() == 0 ? Integer.MAX_VALUE : Categoria.getTop_aux());
         }
-        
+
         return Categoria;
     }
-    
+
     private void doGetRequestIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             categoria Categoria = new categoria();
             Categoria.setTop_aux(10);
             ArrayList<categoria> categorias = categoriasDAL.buscar(Categoria);
             request.setAttribute("categorias", categorias);
-            request.setAttribute("top_aux", Categoria.getTop_aux());             
+            request.setAttribute("top_aux", Categoria.getTop_aux());
             request.getRequestDispatcher("Views/Categoria/index.jsp").forward(request, response);
         } catch (Exception ex) {
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
     }
-    
+
     private void doPostRequestIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             categoria Categoria = obtenerCategoria(request);
@@ -53,15 +51,15 @@ public class categoriaServlet extends HttpServlet{
             request.setAttribute("categorias", categorias);
             request.setAttribute("top_aux", Categoria.getTop_aux());
             request.getRequestDispatcher("Views/Categoria/index.jsp").forward(request, response);
-        } catch (Exception ex) { 
+        } catch (Exception ex) {
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
     }
-    
+
     private void doGetRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("Views/Categoria/create.jsp").forward(request, response);
     }
-    
+
     private void doPostRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             categoria Categoria = obtenerCategoria(request);
@@ -76,13 +74,13 @@ public class categoriaServlet extends HttpServlet{
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
     }
-    
+
     private void requestObtenerPorId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             categoria Categoria = obtenerCategoria(request);
             categoria categoria_result = categoriasDAL.obtenerPorId(Categoria);
             if (categoria_result.getId() > 0) {
-                request.setAttribute("rol", categoria_result);
+                request.setAttribute("categoria", categoria_result);
             } else {
                 Utilidad.enviarError("El Id:" + Categoria.getId() + " no existe en la tabla de Categoria", request, response);
             }
@@ -90,12 +88,12 @@ public class categoriaServlet extends HttpServlet{
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
     }
-    
+
     private void doGetRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
         request.getRequestDispatcher("Views/Categoria/edit.jsp").forward(request, response);
     }
-    
+
     private void doPostRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             categoria Categoria = obtenerCategoria(request);
@@ -111,18 +109,18 @@ public class categoriaServlet extends HttpServlet{
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
     }
-    
+
     private void doGetRequestDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
         request.getRequestDispatcher("Views/Categoria/details.jsp").forward(request, response);
     }
-    
+
     private void doGetRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
         request.getRequestDispatcher("Views/Categoria/delete.jsp").forward(request, response);
     }
-    
-     private void doPostRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    private void doPostRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             categoria Categoria = obtenerCategoria(request);
             int result = categoriasDAL.eliminar(Categoria);
@@ -136,7 +134,8 @@ public class categoriaServlet extends HttpServlet{
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
     }
- @Override
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SessionUser.authorize(request, response, () -> {
@@ -168,7 +167,7 @@ public class categoriaServlet extends HttpServlet{
             }
         });
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -198,5 +197,5 @@ public class categoriaServlet extends HttpServlet{
         });
     }
 // </editor-fold>
-    
+
 }
