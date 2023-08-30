@@ -12,7 +12,7 @@
 <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
 
 <!-- cdn taildwind -->
-<!--<script src="https://cdn.tailwindcss.com"></script> -->
+<script src="https://cdn.tailwindcss.com"></script>
 
 <script
   src="https://code.jquery.com/jquery-3.3.1.js"
@@ -24,3 +24,19 @@
 
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+
+
+
+<!-- Css Styles -->
+<!--<script src="<%=Utilidad.obtenerRuta(request, "/wwwroot/css/bootstrap.min.css") %>"></script> -->
+<!--<script src="<%=Utilidad.obtenerRuta(request, "/wwwroot/css/font-awesome.min.css") %>"></script> -->
+<!--<script src="<%=Utilidad.obtenerRuta(request, "/wwwroot/css/elegant-icons.css") %>"></script> -->
+<!--<script src="<%=Utilidad.obtenerRuta(request, "/wwwroot/css/plyr.css") %>"></script> -->
+<!--<script src="<%=Utilidad.obtenerRuta(request, "/wwwroot/css/nice-select.css") %>"></script> -->
+<!--<script src="<%=Utilidad.obtenerRuta(request, "/wwwroot/css/owl.carousel.min.css") %>"></script> -->
+<!--<script src="<%=Utilidad.obtenerRuta(request, "/wwwroot/css/slicknav.min.css") %>"></script> -->
+<!--<script src="<%=Utilidad.obtenerRuta(request, "/wwwroot/css/style.css") %>"></script> -->
+
+
+

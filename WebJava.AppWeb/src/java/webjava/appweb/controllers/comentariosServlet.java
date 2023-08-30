@@ -137,7 +137,7 @@ public class comentariosServlet extends HttpServlet {
  @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        SessionUser.authorize(request, response, () -> {
+        //SessionUser.authorize(request, response, () -> {
             String accion = Utilidad.getParameter(request, "accion", "index");
             switch (accion) {
                 case "index":
@@ -164,13 +164,13 @@ public class comentariosServlet extends HttpServlet {
                     request.setAttribute("accion", accion);
                     doGetRequestIndex(request, response);
             }
-        });
+        //});
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        SessionUser.authorize(request, response, () -> {
+        //SessionUser.authorize(request, response, () -> {
             String accion = Utilidad.getParameter(request, "accion", "index");
             switch (accion) {
                 case "index":
@@ -193,7 +193,7 @@ public class comentariosServlet extends HttpServlet {
                     request.setAttribute("accion", accion);
                     doGetRequestIndex(request, response);
             }
-        });
+       // });
     }
 // </editor-fold>
     

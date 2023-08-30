@@ -8,103 +8,89 @@
 %>
 <!DOCTYPE html>
 <html>
-    <head>
+    <header class="header">
         <jsp:include page="/views/shared/title.jsp" />
-        <title>Principal</title>
-    </head>
+        
+    </header>
+    <!-- Header End -->
+        
     <body>
         <jsp:include page="/views/shared/headerBody.jsp" />  
-        <main class="container"> 
-
-            <!-- AQUI EMPIEZA LA SECCION DE CATEGORIAS -->
-            <div class="container-fluid py-5">
-                <div class="container pt-5 pb-3">
-                    <div class="text-center mb-5 ">
-                        <h5 class="text-primary text-uppercase mb-3 ">
-                            <span>
-                                <i class="bi bi-wrench-adjustable">Administrador</i>
-                            </span>
-                        </h5>
-                        <h1>Explora las categorias para mantenimiento</h1>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                                <img class="img-fluid" src="./lib/image/course-6.jpg" alt="">
-                                <a class="cat-overlay text-white text-decoration-none" class="nav-link" asp-area="" asp-area="" asp-controller="Blogs" asp-action="Index">
-                                    <h4 class="text-white font-weight-medium">Blogs</h4>
-                                    <span class="adminletras">Ver registros</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                                <img class="img-fluid" src="./lib/image/cat-1.jpg" alt="">
-                                <a class="cat-overlay text-white text-decoration-none" class="nav-link" asp-area="" asp-area="" asp-controller="Rol" asp-action="Index">
-                                    <h4 class="text-white font-weight-medium">Roles</h4>
-                                    <span class="adminletras">ver registros</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                                <img class="img-fluid" src="./lib/image/cat-5.jpg" alt="">
-                                <a class="cat-overlay text-white text-decoration-none" class="nav-link" asp-area="" asp-area="" asp-controller="Usuario" asp-action="Index">
-                                    <h4 class="text-white font-weight-medium">Usuarios</h4>
-                                    <span class="adminletras">Ver registros</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                                <img class="img-fluid" src="./lib/image/cat-2.jpg" alt="">
-                                <a class="cat-overlay text-white text-decoration-none" class="nav-link" asp-area="" asp-area="" asp-controller="Categoria" asp-action="Index">
-                                    <h4 class="text-white font-weight-medium">Categorias</h4>
-                                    <span class="adminletras">ver registros</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                                <img class="img-fluid" src="./lib/image/cat-3.jpg" alt="">
-                                <a class="cat-overlay text-white text-decoration-none" class="nav-link" asp-area="" asp-controller="Curso" asp-action="Index">
-                                    <h4 class="text-white font-weight-medium">Cursos</h4>
-                                    <span class="adminletras">Ver registros</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                                <img class="img-fluid" src="./lib/image/cat-4.jpg" alt="">
-                                <a class="cat-overlay text-white text-decoration-none" class="nav-link" asp-area="" asp-area="" asp-controller="Libros" asp-action="Index">
-                                    <h4 class="text-white font-weight-medium">Libros </h4>
-                                    <span class="adminletras">Ver registros</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                                <img class="img-fluid" src="./lib/image/cat-7.jpg" alt="">
-                                <a class="cat-overlay text-white text-decoration-none" class="nav-link" asp-area="" asp-area="" asp-controller="Compras" asp-action="Index">
-                                    <h4 class="text-white font-weight-medium">Compras</h4>
-                                    <span class="adminletras">Ver registros</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="cat-item position-relative overflow-hidden rounded mb-2">
-                                <img class="img-fluid" src="./lib/image/cat-8.jpg" alt="">
-                                <a class="cat-overlay text-white text-decoration-none" class="nav-link" asp-area="" asp-area="" asp-controller="CompraLibro" asp-action="Index">
-                                    <h4 class="text-white font-weight-medium">Compras de libros</h4>
-                                    <span class="adminletras">Ver registros</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <main> 
+                <!-- Header Section Begin -->
+                
+                
+        <section class="text-gray-600 body-font">
+            <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-col text-center w-full mb-20">
+              <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Categorias para mantenimiento</h1>
+              <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Explora las categiras para poder crear, modificar, eliminar y visualizar los registros</p>
             </div>
-            <!-- AQUI TERMINA LA SECCION DE CATEGORIAS -->
-            
+            <div class="flex flex-wrap -m-4">
+              <div class="lg:w-1/3 sm:w-1/2 p-4">
+                <div class="flex relative">
+                  <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="wwwroot/img/popular/popular-2.jpg">
+                  <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+                    <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">SHOW ME </h2>
+                    <a> <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Ver registros</h1> </a>
+                    <p class="leading-relaxed">Plataforma de Mangas, Historietas y libros. Plataforma de Mangas, Historietas y libros. Plataforma de Mangas, Historietas y libros.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="lg:w-1/3 sm:w-1/2 p-4">
+                <div class="flex relative">
+                  <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="wwwroot/img/popular/popular-1.jpg">
+                  <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+                    <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">SHOW ME</h2>
+                    <a><h1 class="title-font text-lg font-medium text-gray-900 mb-3">Ver registros</h1></a>
+                    <p class="leading-relaxed">Plataforma de Mangas, Historietas y libros. Plataforma de Mangas, Historietas y libros. Plataforma de Mangas, Historietas y libros.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="lg:w-1/3 sm:w-1/2 p-4">
+                <div class="flex relative">
+                  <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="wwwroot/img/popular/popular-3.jpg">
+                  <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+                    <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">SHOW ME</h2>
+                    <a><h1 class="title-font text-lg font-medium text-gray-900 mb-3">Ver registros</h1></a>
+                    <p class="leading-relaxed">Plataforma de Mangas, Historietas y libros. Plataforma de Mangas, Historietas y libros. Plataforma de Mangas, Historietas y libros.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="lg:w-1/3 sm:w-1/2 p-4">
+                <div class="flex relative">
+                  <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="wwwroot/img/popular/popular-4.jpg">
+                  <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+                    <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">SHOW ME</h2>
+                    <a><h1 class="title-font text-lg font-medium text-gray-900 mb-3">Ver registros</h1></a>
+                    <p class="leading-relaxed">Plataforma de Mangas, Historietas y libros. Plataforma de Mangas, Historietas y libros. Plataforma de Mangas, Historietas y libros.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="lg:w-1/3 sm:w-1/2 p-4">
+                <div class="flex relative">
+                  <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="wwwroot/img/popular/popular-5.jpg">
+                  <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+                    <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">THE SUBTITLE</h2>
+                    <a><h1 class="title-font text-lg font-medium text-gray-900 mb-3">Ver registros</h1></a>
+                    <p class="leading-relaxed">Plataforma de Mangas, Historietas y libros. Plataforma de Mangas, Historietas y libros. Plataforma de Mangas, Historietas y libros.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="lg:w-1/3 sm:w-1/2 p-4">
+                <div class="flex relative">
+                  <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="wwwroot/img/popular/popular-6.jpg">
+                  <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+                    <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">THE SUBTITLE</h2>
+                    <a><h1 class="title-font text-lg font-medium text-gray-900 mb-3">Ver registros</h1></a>
+                    <p class="leading-relaxed">Plataforma de Mangas, Historietas y libros. Plataforma de Mangas, Historietas y libros. Plataforma de Mangas, Historietas y libros.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            </section>
+           
         </main>
         <jsp:include page="/views/shared/footerBody.jsp" />
     </body>
