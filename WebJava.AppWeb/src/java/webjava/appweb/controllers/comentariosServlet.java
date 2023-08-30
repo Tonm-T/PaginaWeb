@@ -39,7 +39,7 @@ public class comentariosServlet extends HttpServlet {
             ArrayList<comentario> comentarios = comentariosDAL.buscar(Comentario);
             request.setAttribute("comentarios", comentarios);
             request.setAttribute("top_aux", Comentario.getTop_aux());             
-            request.getRequestDispatcher("Views/Comentario/index.jsp").forward(request, response);
+            request.getRequestDispatcher("Views/comentario/index.jsp").forward(request, response);
         } catch (Exception ex) {
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
@@ -51,14 +51,14 @@ public class comentariosServlet extends HttpServlet {
             ArrayList<comentario> comentario = comentariosDAL.buscar(Comentario);
             request.setAttribute("comentario", comentario);
             request.setAttribute("top_aux", Comentario.getTop_aux());
-            request.getRequestDispatcher("Views/Comentario/index.jsp").forward(request, response);
+            request.getRequestDispatcher("Views/comentario/index.jsp").forward(request, response);
         } catch (Exception ex) { 
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
     }
     
     private void doGetRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("Views/Comentario/create.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/comentario/create.jsp").forward(request, response);
     }
     
     private void doPostRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -92,7 +92,7 @@ public class comentariosServlet extends HttpServlet {
     
     private void doGetRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Comentario/edit.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/comentario/edit.jsp").forward(request, response);
     }
     
     private void doPostRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -113,12 +113,12 @@ public class comentariosServlet extends HttpServlet {
     
     private void doGetRequestDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Comentario/details.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/comentario/details.jsp").forward(request, response);
     }
     
     private void doGetRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Comentario/delete.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/comentario/delete.jsp").forward(request, response);
     }
     
      private void doPostRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
