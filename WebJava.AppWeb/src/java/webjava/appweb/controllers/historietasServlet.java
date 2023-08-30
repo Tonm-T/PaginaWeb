@@ -12,7 +12,7 @@ import webjava.accesoadatos.historietasDAL;
 import webjava.entidadesdenegocio.*;
 import webjava.appweb.utils.*;
 
-@WebServlet(name = "historietasServlet", urlPatterns = {"/historietasServlet"})
+@WebServlet(name = "historietasServlet", urlPatterns = {"/historietas"})
 public class historietasServlet extends HttpServlet {
 
     private historietas obtenerHistorieta(HttpServletRequest request) {

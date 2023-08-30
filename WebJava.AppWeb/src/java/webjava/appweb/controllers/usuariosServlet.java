@@ -15,7 +15,7 @@ import webjava.appweb.utils.*;
 import webjava.entidadesdenegocio.rol;
 import webjava.entidadesdenegocio.usuarios;
 
-@WebServlet(name = "usuariosServlet", urlPatterns = {"/usuariosServlet"})
+@WebServlet(name = "usuariosServlet", urlPatterns = {"/usuarios"})
 public class usuariosServlet extends HttpServlet {
       
      private usuarios obtenerUsuarios(HttpServletRequest request) {

@@ -14,7 +14,7 @@ import webjava.appweb.utils.Utilidad;
 import webjava.entidadesdenegocio.comentario;
 
 
-@WebServlet(name = "comentariosServlet", urlPatterns = {"/comentariosServlet"})
+@WebServlet(name = "comentariosServlet", urlPatterns = {"/comentarios"})
 public class comentariosServlet extends HttpServlet {
     
     private comentario obtenerComentarios(HttpServletRequest request) {
