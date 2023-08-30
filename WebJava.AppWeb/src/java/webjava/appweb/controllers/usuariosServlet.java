@@ -52,7 +52,7 @@ public class usuariosServlet extends HttpServlet {
             ArrayList<usuarios> usuarios = usuariosDAL.buscarIncluirRol(usuario);
             request.setAttribute("usuarios", usuarios);
             request.setAttribute("top_aux", usuario.getTop_aux());
-            request.getRequestDispatcher("Views/Usuario/index.jsp").forward(request, response);
+            request.getRequestDispatcher("Views/usuarios/index.jsp").forward(request, response);
         } catch (Exception ex) {
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
@@ -64,14 +64,14 @@ public class usuariosServlet extends HttpServlet {
             ArrayList<usuarios> usuarios = usuariosDAL.buscarIncluirRol(usuario);
             request.setAttribute("usuarios", usuarios);
             request.setAttribute("top_aux", usuario.getTop_aux());
-            request.getRequestDispatcher("Views/Usuario/index.jsp").forward(request, response);
+            request.getRequestDispatcher("Views/usuarios/index.jsp").forward(request, response);
         } catch (Exception ex) {
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
     }
      
       private void doGetRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("Views/Usuario/create.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/usuarios/create.jsp").forward(request, response);
     }
 
     private void doPostRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -108,7 +108,7 @@ public class usuariosServlet extends HttpServlet {
      
      private void doGetRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Usuario/edit.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/usuarios/edit.jsp").forward(request, response);
     }
 
     private void doPostRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -128,12 +128,12 @@ public class usuariosServlet extends HttpServlet {
     
     private void doGetRequestDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Usuario/details.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/usuarios/details.jsp").forward(request, response);
     }
 
     private void doGetRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Usuario/delete.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/usuarios/delete.jsp").forward(request, response);
     }
     
       private void doPostRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -153,7 +153,7 @@ public class usuariosServlet extends HttpServlet {
 
     private void doGetRequestLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SessionUser.cerrarSession(request);
-        request.getRequestDispatcher("Views/Usuario/login.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/usuarios/login.jsp").forward(request, response);
     }
     
     private void doPostRequestLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -183,7 +183,7 @@ public class usuariosServlet extends HttpServlet {
             usuarios usuario_result = usuariosDAL.buscar(usuario).get(0);
             if (usuario_result.getId() > 0) {
                 request.setAttribute("usuario", usuario_result);
-                request.getRequestDispatcher("Views/Usuario/cambiarPassword.jsp").forward(request, response);
+                request.getRequestDispatcher("Views/usuarios/cambiarPassword.jsp").forward(request, response);
             } else {
                 Utilidad.enviarError("El Id:" + usuario_result.getId() + " no existe en la tabla de Usuario", request, response);
             }
