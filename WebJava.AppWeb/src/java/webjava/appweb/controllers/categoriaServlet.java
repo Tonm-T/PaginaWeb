@@ -38,7 +38,7 @@ public class categoriaServlet extends HttpServlet {
             ArrayList<categoria> categorias = categoriasDAL.buscar(Categoria);
             request.setAttribute("categorias", categorias);
             request.setAttribute("top_aux", Categoria.getTop_aux());
-            request.getRequestDispatcher("Views/Categoria/index.jsp").forward(request, response);
+            request.getRequestDispatcher("Views/categoria/index.jsp").forward(request, response);
         } catch (Exception ex) {
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
@@ -50,14 +50,14 @@ public class categoriaServlet extends HttpServlet {
             ArrayList<categoria> categorias = categoriasDAL.buscar(Categoria);
             request.setAttribute("categorias", categorias);
             request.setAttribute("top_aux", Categoria.getTop_aux());
-            request.getRequestDispatcher("Views/Categoria/index.jsp").forward(request, response);
+            request.getRequestDispatcher("Views/categoria/index.jsp").forward(request, response);
         } catch (Exception ex) {
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
     }
 
     private void doGetRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("Views/Categoria/create.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/categoria/create.jsp").forward(request, response);
     }
 
     private void doPostRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -91,7 +91,7 @@ public class categoriaServlet extends HttpServlet {
 
     private void doGetRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Categoria/edit.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/categoria/edit.jsp").forward(request, response);
     }
 
     private void doPostRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -112,12 +112,12 @@ public class categoriaServlet extends HttpServlet {
 
     private void doGetRequestDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Categoria/details.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/categoria/details.jsp").forward(request, response);
     }
 
     private void doGetRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Categoria/delete.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/categoria/delete.jsp").forward(request, response);
     }
 
     private void doPostRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -44,7 +44,7 @@ public class historietasServlet extends HttpServlet {
             ArrayList<historietas> historietas = historietasDAL.buscar(historieta);
             request.setAttribute("usuarios", historietas);
             request.setAttribute("top_aux", historieta.getTop_aux());
-            request.getRequestDispatcher("Views/Usuario/index.jsp").forward(request, response);
+            request.getRequestDispatcher("Views/historietas/index.jsp").forward(request, response);
         } catch (Exception ex) {
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
@@ -56,14 +56,14 @@ public class historietasServlet extends HttpServlet {
             ArrayList<historietas> historietas = historietasDAL.buscar(historieta);
             request.setAttribute("usuarios", historietas);
             request.setAttribute("top_aux", historieta.getTop_aux());
-            request.getRequestDispatcher("Views/Usuario/index.jsp").forward(request, response);
+            request.getRequestDispatcher("Views/historietas/index.jsp").forward(request, response);
         } catch (Exception ex) {
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
     }
      
       private void doGetRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("Views/Usuario/create.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/historietas/create.jsp").forward(request, response);
     }
       
        private void doPostRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -100,7 +100,7 @@ public class historietasServlet extends HttpServlet {
      
      private void doGetRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Usuario/edit.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/historietas/edit.jsp").forward(request, response);
     }
 
     private void doPostRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -120,12 +120,12 @@ public class historietasServlet extends HttpServlet {
     
     private void doGetRequestDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Usuario/details.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/historietas/details.jsp").forward(request, response);
     }
 
     private void doGetRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Usuario/delete.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/historietas/delete.jsp").forward(request, response);
     }
     
       private void doPostRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

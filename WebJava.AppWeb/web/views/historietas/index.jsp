@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 16 ago. 2023, 1:40:25 p. m.
-    Author     : tom19
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

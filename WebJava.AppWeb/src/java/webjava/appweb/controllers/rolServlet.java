@@ -37,7 +37,7 @@ public class rolServlet extends HttpServlet {
             ArrayList<rol> roles = rolDAL.buscar(Rol);
             request.setAttribute("roles", roles);
             request.setAttribute("top_aux", Rol.getTop_aux());             
-            request.getRequestDispatcher("Views/Rol/index.jsp").forward(request, response);
+            request.getRequestDispatcher("Views/rol/index.jsp").forward(request, response);
         } catch (Exception ex) {
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
@@ -49,14 +49,14 @@ public class rolServlet extends HttpServlet {
             ArrayList<rol> roles = rolDAL.buscar(Rol);
             request.setAttribute("roles", roles);
             request.setAttribute("top_aux", Rol.getTop_aux());
-            request.getRequestDispatcher("Views/Rol/index.jsp").forward(request, response);
+            request.getRequestDispatcher("Views/rol/index.jsp").forward(request, response);
         } catch (Exception ex) { 
             Utilidad.enviarError(ex.getMessage(), request, response);
         }
     }
     
     private void doGetRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("Views/Rol/create.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/rol/create.jsp").forward(request, response);
     }
     
     private void doPostRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -90,7 +90,7 @@ public class rolServlet extends HttpServlet {
     
     private void doGetRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Rol/edit.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/rol/edit.jsp").forward(request, response);
     }
     
     private void doPostRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -111,12 +111,12 @@ public class rolServlet extends HttpServlet {
     
     private void doGetRequestDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Rol/details.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/rol/details.jsp").forward(request, response);
     }
     
     private void doGetRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         requestObtenerPorId(request, response);
-        request.getRequestDispatcher("Views/Rol/delete.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/rol/delete.jsp").forward(request, response);
     }
     
      private void doPostRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
