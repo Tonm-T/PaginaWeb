@@ -2,7 +2,7 @@ package webjava.entidadesdenegocio;
 
 import java.util.Date;
 
-public class blogs {
+public class Blog {
     private int id;
     private int categoriasid;
     private int cometariosid;
@@ -14,13 +14,13 @@ public class blogs {
     private String imagendescripcion;
     private String imagencontenido;
     private int top_aux;
-    private categoria categorias;
-    private comentario comentario;
+    private Categoria categorias;
+    private Comentario comentario;
 
-    public blogs() {
+    public Blog() {
     }
 
-    public blogs(int id, int categoriasid, int cometariosid, String autor, String nombre, String descripcion, String contenido, Date fechacreacion, String imagendescripcion, String imagencontenido, int top_aux, categoria categorias, comentario comentarios) {
+    public Blog(int id, int categoriasid, int cometariosid, String autor, String nombre, String descripcion, String contenido, Date fechacreacion, String imagendescripcion, String imagencontenido, int top_aux, Categoria categorias, Comentario comentario) {
         this.id = id;
         this.categoriasid = categoriasid;
         this.cometariosid = cometariosid;
@@ -124,19 +124,19 @@ public class blogs {
         this.top_aux = top_aux;
     }
 
-    public categoria getCategorias() {
+    public Categoria getCategorias() {
         return categorias;
     }
 
-    public void setCategorias(categoria categorias) {
+    public void setCategorias(Categoria categorias) {
         this.categorias = categorias;
     }
 
-    public comentario getComentarios() {
+    public Comentario getComentario() {
         return comentario;
     }
 
-    public void setComentarios(comentario comentarios) {
-        this.comentario = comentarios;
+    public void setComentario(Comentario comentario) {
+        this.comentario = comentario;
     }
 }

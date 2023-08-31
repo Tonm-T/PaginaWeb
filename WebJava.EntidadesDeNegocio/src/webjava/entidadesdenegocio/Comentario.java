@@ -2,17 +2,16 @@ package webjava.entidadesdenegocio;
 
 import java.util.ArrayList;
 
-
-public class comentario {
+public class Comentario {
     private int id;
     private String contenido;
     private int top_aux;
-    private ArrayList<comentario> comentario;
+    private ArrayList<Comentario> comentario;
 
-    public comentario() {
+    public Comentario() {
     }
 
-    public comentario(int id, String contenido, int top_aux, ArrayList<comentario> comentario) {
+    public Comentario(int id, String contenido, int top_aux, ArrayList<Comentario> comentario) {
         this.id = id;
         this.contenido = contenido;
         this.top_aux = top_aux;
@@ -43,13 +42,11 @@ public class comentario {
         this.top_aux = top_aux;
     }
 
-    public ArrayList<comentario> getComentarios() {
+    public ArrayList<Comentario> getComentario() {
         return comentario;
     }
 
-    public void setComentarios(ArrayList<comentario> comentario) {
+    public void setComentario(ArrayList<Comentario> comentario) {
         this.comentario = comentario;
     }
-    
-    
 }

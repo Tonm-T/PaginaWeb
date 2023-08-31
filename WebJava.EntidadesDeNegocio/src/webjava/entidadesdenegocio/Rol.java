@@ -2,17 +2,16 @@ package webjava.entidadesdenegocio;
 
 import java.util.ArrayList;
 
-public class rol {
+public class Rol {
     private int id;
     private String nombre;
     private int top_aux;
-    private ArrayList<rol> rol;
-   
-    //Contructor
-    public rol() {
+    private ArrayList<Rol> rol;
+
+    public Rol() {
     }
 
-    public rol(int id, String nombre, int top_aux, ArrayList<rol> rol) {
+    public Rol(int id, String nombre, int top_aux, ArrayList<Rol> rol) {
         this.id = id;
         this.nombre = nombre;
         this.top_aux = top_aux;
@@ -43,11 +42,11 @@ public class rol {
         this.top_aux = top_aux;
     }
 
-    public ArrayList<rol> getRol() {
+    public ArrayList<Rol> getRol() {
         return rol;
     }
 
-    public void setRol(ArrayList<rol> rol) {
+    public void setRol(ArrayList<Rol> rol) {
         this.rol = rol;
     }
 }

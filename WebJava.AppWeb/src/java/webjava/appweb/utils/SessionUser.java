@@ -8,12 +8,12 @@ import jakarta.servlet.http.HttpSession;
 import webjava.entidadesdenegocio.*;
 
 public class SessionUser {
-    public static void autenticarUser(HttpServletRequest request, usuarios pUsuarios) {
+    public static void autenticarUser(HttpServletRequest request, Usuario pUsuario) {
         HttpSession session = (HttpSession) request.getSession();
         session.setMaxInactiveInterval(3600);
         session.setAttribute("auth", true);
-        session.setAttribute("user", pUsuarios.getLogin());
-        session.setAttribute("rol", pUsuarios.getRol().getNombre()); 
+        session.setAttribute("user", pUsuario.getLogin());
+        session.setAttribute("rol", pUsuario.getRol().getNombre()); 
     }
     
     public static boolean isAuth(HttpServletRequest request) {

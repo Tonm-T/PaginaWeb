@@ -7,18 +7,18 @@ import jakarta.servlet.http.HttpServlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import webjava.accesoadatos.categoriasDAL;
+import webjava.accesoadatos.CategoriaDAL;
 import jakarta.servlet.annotation.WebServlet;
 import webjava.appweb.utils.SessionUser;
-import webjava.entidadesdenegocio.categoria;
+import webjava.entidadesdenegocio.Categoria;
 import webjava.appweb.utils.*;
 
 @WebServlet(name = "categoriaServlet", urlPatterns = {"/categoria"})
 public class categoriaServlet extends HttpServlet {
 
-    private categoria obtenerCategoria(HttpServletRequest request) {
+    private Categoria obtenerCategoria(HttpServletRequest request) {
         String accion = Utilidad.getParameter(request, "accion", "index");
-        categoria Categoria = new categoria();
+        Categoria Categoria = new Categoria();
         if (accion.equals("create") == false) {
             Categoria.setId(Integer.parseInt(Utilidad.getParameter(request, "id", "0")));
         }
@@ -33,9 +33,9 @@ public class categoriaServlet extends HttpServlet {
 
     private void doGetRequestIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            categoria Categoria = new categoria();
+            Categoria Categoria = new Categoria();
             Categoria.setTop_aux(10);
-            ArrayList<categoria> categorias = categoriasDAL.buscar(Categoria);
+            ArrayList<Categoria> categorias = CategoriaDAL.buscar(Categoria);
             request.setAttribute("categorias", categorias);
             request.setAttribute("top_aux", Categoria.getTop_aux());
             request.getRequestDispatcher("Views/categoria/index.jsp").forward(request, response);
@@ -46,8 +46,8 @@ public class categoriaServlet extends HttpServlet {
 
     private void doPostRequestIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            categoria Categoria = obtenerCategoria(request);
-            ArrayList<categoria> categorias = categoriasDAL.buscar(Categoria);
+            Categoria Categoria = obtenerCategoria(request);
+            ArrayList<Categoria> categorias = CategoriaDAL.buscar(Categoria);
             request.setAttribute("categorias", categorias);
             request.setAttribute("top_aux", Categoria.getTop_aux());
             request.getRequestDispatcher("Views/categoria/index.jsp").forward(request, response);
@@ -62,8 +62,8 @@ public class categoriaServlet extends HttpServlet {
 
     private void doPostRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            categoria Categoria = obtenerCategoria(request);
-            int result = categoriasDAL.crear(Categoria);
+            Categoria Categoria = obtenerCategoria(request);
+            int result = CategoriaDAL.crear(Categoria);
             if (result != 0) {
                 request.setAttribute("accion", "index");
                 doGetRequestIndex(request, response);
@@ -77,8 +77,8 @@ public class categoriaServlet extends HttpServlet {
 
     private void requestObtenerPorId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            categoria Categoria = obtenerCategoria(request);
-            categoria categoria_result = categoriasDAL.obtenerPorId(Categoria);
+            Categoria Categoria = obtenerCategoria(request);
+            Categoria categoria_result = CategoriaDAL.obtenerPorId(Categoria);
             if (categoria_result.getId() > 0) {
                 request.setAttribute("categoria", categoria_result);
             } else {
@@ -96,8 +96,8 @@ public class categoriaServlet extends HttpServlet {
 
     private void doPostRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            categoria Categoria = obtenerCategoria(request);
-            int result = categoriasDAL.modificar(Categoria);
+            Categoria Categoria = obtenerCategoria(request);
+            int result = CategoriaDAL.modificar(Categoria);
             if (result != 0) {
                 request.setAttribute("accion", "index");
                 doGetRequestIndex(request, response);
@@ -122,8 +122,8 @@ public class categoriaServlet extends HttpServlet {
 
     private void doPostRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            categoria Categoria = obtenerCategoria(request);
-            int result = categoriasDAL.eliminar(Categoria);
+            Categoria Categoria = obtenerCategoria(request);
+            int result = CategoriaDAL.eliminar(Categoria);
             if (result != 0) {
                 request.setAttribute("accion", "index");
                 doGetRequestIndex(request, response);

@@ -1,6 +1,7 @@
 package webjava.entidadesdenegocio;
 
-public class historietas {
+
+public class Historieta {
     private int id;
     private String autor;
     private int categoriasid;
@@ -15,12 +16,12 @@ public class historietas {
     private byte cantidadpag;
     private String imagen;
     private int top_aux;
-    private historietas historietas;
+    private Historieta historietas;
 
-    public historietas() {
+    public Historieta() {
     }
 
-    public historietas(int id, String autor, int categoriasid, String nombre, String descripcion, String precio, String precioanterior, String link, String editorioal, byte edicion, String fechapublicacion, byte cantidadpag, String imagen, int top_aux, historietas historietas) {
+    public Historieta(int id, String autor, int categoriasid, String nombre, String descripcion, String precio, String precioanterior, String link, String editorioal, byte edicion, String fechapublicacion, byte cantidadpag, String imagen, int top_aux, Historieta historietas) {
         this.id = id;
         this.autor = autor;
         this.categoriasid = categoriasid;
@@ -150,11 +151,11 @@ public class historietas {
         this.top_aux = top_aux;
     }
 
-    public historietas getHistorietas() {
+    public Historieta getHistorietas() {
         return historietas;
     }
 
-    public void setHistorietas(historietas historietas) {
+    public void setHistorietas(Historieta historietas) {
         this.historietas = historietas;
-    }
+    } 
 }

@@ -5,35 +5,35 @@ import java.sql.*;
 import webjava.entidadesdenegocio.*;
 import java.time.LocalDate;
 
-public class historietasDAL {
-     static String obtenerCampos() {
+public class HistorietaDAL {
+    static String obtenerCampos() {
         return "h.id, h.autor, h.categorias, h.nombre, h.descripcion, h.precio, h.precioanterior, h.link, h.editorial, h.edicion, h.fechapublicacion, h.cantidad, h.imagen";
     }
     
-    private static String obtenerSelect(historietas pHistorietas) {
+    private static String obtenerSelect(Historieta pHistorietas) {
         String sql;
         sql = "SELECT ";
-        if (pHistorietas.getTop_aux() > 0 && comunBD.TIPODB == comunBD.TipoDB.SQLSERVER) {            
+        if (pHistorietas.getTop_aux() > 0 && ComunBD.TIPODB == ComunBD.TipoDB.SQLSERVER) {            
             sql += "TOP" + pHistorietas.getTop_aux() + " ";
         }
         sql += (obtenerCampos() + " FROM historietas h");
         return sql;
     }
     
-    private static String agregarOrderBy(historietas pHistorietas) {
+    private static String agregarOrderBy(Historieta pHistorietas) {
         String sql = " ORDER BY r.Id DESC";
-        if (pHistorietas.getTop_aux() > 0 && comunBD.TIPODB == comunBD.TipoDB.MYSQL) {
+        if (pHistorietas.getTop_aux() > 0 && ComunBD.TIPODB == ComunBD.TipoDB.MYSQL) {
             sql += " LIMIT " + pHistorietas.getTop_aux() + " ";
         }
         return sql;
     }
     
-    public static int crear(historietas pHistorietas) throws Exception {
+    public static int crear(Historieta pHistorietas) throws Exception {
         int result;
         String sql;
-        try (Connection conn = comunBD.obtenerConexion();) { 
+        try (Connection conn = ComunBD.obtenerConexion();) { 
             sql = "INSERT INTO rol(autor, nombre, descripcion, precio, precioanterior, link, editorial, edicion, fechapublicacion, cantidad, imagen)";
-            try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
+            try (PreparedStatement ps = ComunBD.createPreparedStatement(conn, sql);) {
                 ps.setString(1, pHistorietas.getAutor());
                 ps.setString(2, pHistorietas.getNombre());
                 ps.setString(3, pHistorietas.getDescripcion());
@@ -53,12 +53,12 @@ public class historietasDAL {
         return result;
     }
     
-    public static int modificar(historietas pHistorietas) throws Exception {
+    public static int modificar(Historieta pHistorietas) throws Exception {
         int result;
         String sql;
-        try (Connection conn = comunBD.obtenerConexion();) {
+        try (Connection conn = ComunBD.obtenerConexion();) {
             sql = "UPDATE Rol SET Nombre=? WHERE Id=?";
-            try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
+            try (PreparedStatement ps = ComunBD.createPreparedStatement(conn, sql);) {
                 ps.setString(1, pHistorietas.getNombre());
                 ps.setInt(2, pHistorietas.getId());
                 result = ps.executeUpdate();
@@ -73,12 +73,12 @@ public class historietasDAL {
         return result;
     }
     
-     public static int eliminar(historietas pHistorietas) throws Exception {
+     public static int eliminar(Historieta pHistorietas) throws Exception {
         int result;
         String sql;
-        try (Connection conn = comunBD.obtenerConexion();) {
+        try (Connection conn = ComunBD.obtenerConexion();) {
             sql = "DELETE FROM Rol WHERE Id=?";
-            try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
+            try (PreparedStatement ps = ComunBD.createPreparedStatement(conn, sql);) {
                 ps.setInt(1, pHistorietas.getId());
                 result = ps.executeUpdate();
                 ps.close();
@@ -92,7 +92,7 @@ public class historietasDAL {
         return result;
     } 
     
-    static int asignarDatosResultSet(historietas pHistorietas, ResultSet pResultSet, int pIndex) throws Exception {
+    static int asignarDatosResultSet(Historieta pHistorietas, ResultSet pResultSet, int pIndex) throws Exception {
         pIndex++;
         pHistorietas.setId(pResultSet.getInt(pIndex));
         pIndex++;
@@ -100,10 +100,10 @@ public class historietasDAL {
         return pIndex;
     }
     
-    private static void obtenerDatos(PreparedStatement pPS, ArrayList<historietas> pHistorietas) throws Exception {
-        try (ResultSet resultSet = comunBD.obtenerResultSet(pPS);) {
+    private static void obtenerDatos(PreparedStatement pPS, ArrayList<Historieta> pHistorietas) throws Exception {
+        try (ResultSet resultSet = ComunBD.obtenerResultSet(pPS);) {
             while (resultSet.next()) {
-                historietas historieta = new historietas(); 
+                Historieta historieta = new Historieta(); 
                 asignarDatosResultSet(historieta, resultSet, 0);
                 pHistorietas.add(historieta);
             }
@@ -113,13 +113,13 @@ public class historietasDAL {
         }
     }
     
-     public static historietas obtenerPorId(historietas pHistorietas) throws Exception {
-        historietas historieta = new historietas();
-        ArrayList<historietas> historias = new ArrayList();
-        try (Connection conn = comunBD.obtenerConexion();) { 
+     public static Historieta obtenerPorId(Historieta pHistorietas) throws Exception {
+        Historieta historieta = new Historieta();
+        ArrayList<Historieta> historias = new ArrayList();
+        try (Connection conn = ComunBD.obtenerConexion();) { 
             String sql = obtenerSelect(pHistorietas);
             sql += " WHERE r.Id=?";
-            try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
+            try (PreparedStatement ps = ComunBD.createPreparedStatement(conn, sql);) {
                 ps.setInt(1, pHistorietas.getId());
                 obtenerDatos(ps, historias);
                 ps.close();
@@ -139,12 +139,12 @@ public class historietasDAL {
         return historieta;
     }
     
-    public static ArrayList<historietas> obtenerTodos() throws Exception {
-        ArrayList<historietas> historias = new ArrayList<>();
-        try (Connection conn = comunBD.obtenerConexion();) {
-            String sql = obtenerSelect(new historietas());
-            sql += agregarOrderBy(new historietas());
-            try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
+    public static ArrayList<Historieta> obtenerTodos() throws Exception {
+        ArrayList<Historieta> historias = new ArrayList<>();
+        try (Connection conn = ComunBD.obtenerConexion();) {
+            String sql = obtenerSelect(new Historieta());
+            sql += agregarOrderBy(new Historieta());
+            try (PreparedStatement ps = ComunBD.createPreparedStatement(conn, sql);) {
                 obtenerDatos(ps, historias);
                 ps.close();
             } catch (SQLException ex) {
@@ -159,7 +159,7 @@ public class historietasDAL {
         return historias;
     }
     
-    static void querySelect(historietas pHistorietas, comunBD.utilQuery pUtilQuery) throws SQLException {
+    static void querySelect(Historieta pHistorietas, ComunBD.utilQuery pUtilQuery) throws SQLException {
         PreparedStatement statement = pUtilQuery.getStatement();
         if (pHistorietas.getId() > 0) {
             pUtilQuery.AgregarNumWhere(" r.Id=? ");
@@ -176,16 +176,16 @@ public class historietasDAL {
         }
     }
     
-    public static ArrayList<historietas> buscar(historietas pHistorietas) throws Exception {
-        ArrayList<historietas> historia = new ArrayList();
-        try (Connection conn = comunBD.obtenerConexion();) {
+    public static ArrayList<Historieta> buscar(Historieta pHistorietas) throws Exception {
+        ArrayList<Historieta> historia = new ArrayList();
+        try (Connection conn = ComunBD.obtenerConexion();) {
             String sql = obtenerSelect(pHistorietas);
-            comunBD comundb = new comunBD();
-            comunBD.utilQuery utilQuery = comundb.new utilQuery(sql, null, 0); 
+            ComunBD comundb = new ComunBD();
+            ComunBD.utilQuery utilQuery = comundb.new utilQuery(sql, null, 0); 
             querySelect(pHistorietas, utilQuery);
             sql = utilQuery.getSQL(); 
             sql += agregarOrderBy(pHistorietas);
-            try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
+            try (PreparedStatement ps = ComunBD.createPreparedStatement(conn, sql);) {
                 utilQuery.setStatement(ps);
                 utilQuery.setSQL(null);
                 utilQuery.setNumWhere(0); 

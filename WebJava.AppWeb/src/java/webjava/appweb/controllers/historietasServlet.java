@@ -8,16 +8,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.ArrayList;
-import webjava.accesoadatos.historietasDAL;
+import webjava.accesoadatos.HistorietaDAL;
 import webjava.entidadesdenegocio.*;
 import webjava.appweb.utils.*;
 
 @WebServlet(name = "historietasServlet", urlPatterns = {"/historietas"})
 public class historietasServlet extends HttpServlet {
 
-    private historietas obtenerHistorieta(HttpServletRequest request) {
+    private Historieta obtenerHistorieta(HttpServletRequest request) {
     String accion = Utilidad.getParameter(request, "accion", "index");
-    historietas historieta = new historietas();
+    Historieta historieta = new Historieta();
     historieta.setAutor(Utilidad.getParameter(request, "autor", ""));
     historieta.setNombre(Utilidad.getParameter(request, "nombre", ""));
     historieta.setDescripcion(Utilidad.getParameter(request, "descripcion", ""));
@@ -39,9 +39,9 @@ public class historietasServlet extends HttpServlet {
     
       private void doGetRequestIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            historietas historieta = new historietas();
+            Historieta historieta = new Historieta();
             historieta.setTop_aux(10);
-            ArrayList<historietas> historietas = historietasDAL.buscar(historieta);
+            ArrayList<Historieta> historietas = HistorietaDAL.buscar(historieta);
             request.setAttribute("usuarios", historietas);
             request.setAttribute("top_aux", historieta.getTop_aux());
             request.getRequestDispatcher("Views/historietas/index.jsp").forward(request, response);
@@ -52,8 +52,8 @@ public class historietasServlet extends HttpServlet {
       
       private void doPostRequestIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            historietas historieta = obtenerHistorieta(request);
-            ArrayList<historietas> historietas = historietasDAL.buscar(historieta);
+            Historieta historieta = obtenerHistorieta(request);
+            ArrayList<Historieta> historietas = HistorietaDAL.buscar(historieta);
             request.setAttribute("usuarios", historietas);
             request.setAttribute("top_aux", historieta.getTop_aux());
             request.getRequestDispatcher("Views/historietas/index.jsp").forward(request, response);
@@ -68,8 +68,8 @@ public class historietasServlet extends HttpServlet {
       
        private void doPostRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            historietas historieta = obtenerHistorieta(request);
-            int result = historietasDAL.crear(historieta);
+            Historieta historieta = obtenerHistorieta(request);
+            int result = HistorietaDAL.crear(historieta);
             if (result != 0) {
                 request.setAttribute("accion", "index");
                 doGetRequestIndex(request, response);
@@ -83,12 +83,12 @@ public class historietasServlet extends HttpServlet {
     
      private void requestObtenerPorId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            historietas historieta = obtenerHistorieta(request);
-            historietas historieta_result = historietasDAL.obtenerPorId(historieta);
+            Historieta historieta = obtenerHistorieta(request);
+            Historieta historieta_result = HistorietaDAL.obtenerPorId(historieta);
             if (historieta_result.getId() > 0) {
-                historietas historiet = new historietas();
+                Historieta historiet = new Historieta();
                 historiet.setId(historieta_result.getId());
-                historieta_result.setHistorietas(historietasDAL.obtenerPorId(historiet));
+                historieta_result.setHistorietas(HistorietaDAL.obtenerPorId(historiet));
                 request.setAttribute("usuario", historieta_result);
             } else {
                 Utilidad.enviarError("El Id:" + historieta_result.getId() + " no existe en la tabla de Usuario", request, response);
@@ -105,8 +105,8 @@ public class historietasServlet extends HttpServlet {
 
     private void doPostRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            historietas historieta = obtenerHistorieta(request);
-            int result = historietasDAL.modificar(historieta);
+            Historieta historieta = obtenerHistorieta(request);
+            int result = HistorietaDAL.modificar(historieta);
             if (result != 0) {
                 request.setAttribute("accion", "index");
                 doGetRequestIndex(request, response);
@@ -130,8 +130,8 @@ public class historietasServlet extends HttpServlet {
     
       private void doPostRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            historietas historieta = obtenerHistorieta(request);
-            int result = historietasDAL.eliminar(historieta);
+            Historieta historieta = obtenerHistorieta(request);
+            int result = HistorietaDAL.eliminar(historieta);
             if (result != 0) {
                 request.setAttribute("accion", "index");
                 doGetRequestIndex(request, response);

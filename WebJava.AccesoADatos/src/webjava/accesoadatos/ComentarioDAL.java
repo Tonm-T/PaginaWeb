@@ -4,35 +4,35 @@ import java.util.*;
 import java.sql.*;
 import webjava.entidadesdenegocio.*;
 
-public class comentariosDAL {
-     static String obtenerCampos() {
+public class ComentarioDAL {
+    static String obtenerCampos() {
     return "c,id,";
     }
     
-    private static String obtenerSelect(comentario pComentario) {
+    private static String obtenerSelect(Comentario pComentario) {
     String sql;
     sql = "SELECT";
-    if (pComentario.getTop_aux() > 0 && comunBD.TIPODB == comunBD.TipoDB.SQLSERVER) {
+    if (pComentario.getTop_aux() > 0 && ComunBD.TIPODB == ComunBD.TipoDB.SQLSERVER) {
     sql += "TOP" + pComentario.getTop_aux() + " ";
     }
         sql += (obtenerCampos() + " FROM Rol r");
         return sql;
     }
     
-    private static String agregarOrderBy(comentario pComentario) {
+    private static String agregarOrderBy(Comentario pComentario) {
         String sql = " ORDER BY r.Id DESC";
-        if (pComentario.getTop_aux() > 0 && comunBD.TIPODB == comunBD.TipoDB.MYSQL) {
+        if (pComentario.getTop_aux() > 0 && ComunBD.TIPODB == ComunBD.TipoDB.MYSQL) {
             sql += " LIMIT " + pComentario.getTop_aux() + " ";
         }
         return sql;
     }
     
-    public static int crear(comentario pComentario) throws Exception {
+    public static int crear(Comentario pComentario) throws Exception {
         int result;
         String sql;
-        try (Connection conn = comunBD.obtenerConexion();) { 
+        try (Connection conn = ComunBD.obtenerConexion();) { 
             sql = "INSERT INTO rol(Nombre) VALUES(?)";
-            try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
+            try (PreparedStatement ps = ComunBD.createPreparedStatement(conn, sql);) {
                 ps.setString(1, pComentario.getContenido());
                 result = ps.executeUpdate();
                 ps.close();
@@ -46,12 +46,12 @@ public class comentariosDAL {
         return result;
     }
     
-     public static int modificar(comentario pComentario) throws Exception {
+     public static int modificar(Comentario pComentario) throws Exception {
         int result;
         String sql;
-        try (Connection conn = comunBD.obtenerConexion();) {
+        try (Connection conn = ComunBD.obtenerConexion();) {
             sql = "UPDATE Rol SET Nombre=? WHERE Id=?";
-            try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
+            try (PreparedStatement ps = ComunBD.createPreparedStatement(conn, sql);) {
                 ps.setString(1, pComentario.getContenido());
                 ps.setInt(2, pComentario.getId());
                 result = ps.executeUpdate();
@@ -66,12 +66,12 @@ public class comentariosDAL {
         return result;
     }
     
-    public static int eliminar(comentario pComentario) throws Exception {
+    public static int eliminar(Comentario pComentario) throws Exception {
         int result;
         String sql;
-        try (Connection conn = comunBD.obtenerConexion();) {
+        try (Connection conn = ComunBD.obtenerConexion();) {
             sql = "DELETE FROM Rol WHERE Id=?";
-            try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
+            try (PreparedStatement ps = ComunBD.createPreparedStatement(conn, sql);) {
                 ps.setInt(1, pComentario.getId());
                 result = ps.executeUpdate();
                 ps.close();
@@ -85,7 +85,7 @@ public class comentariosDAL {
         return result;
     } 
     
-    static int asignarDatosResultSet(comentario pComentario, ResultSet pResultSet, int pIndex) throws Exception {
+    static int asignarDatosResultSet(Comentario pComentario, ResultSet pResultSet, int pIndex) throws Exception {
         pIndex++;
         pComentario.setId(pResultSet.getInt(pIndex));
         pIndex++;
@@ -93,10 +93,10 @@ public class comentariosDAL {
         return pIndex;
     }
     
-    private static void obtenerDatos(PreparedStatement pPS, ArrayList<comentario> pComentarios) throws Exception {
-        try (ResultSet resultSet = comunBD.obtenerResultSet(pPS);) {
+    private static void obtenerDatos(PreparedStatement pPS, ArrayList<Comentario> pComentarios) throws Exception {
+        try (ResultSet resultSet = ComunBD.obtenerResultSet(pPS);) {
             while (resultSet.next()) {
-                comentario comentarios = new comentario(); 
+                Comentario comentarios = new Comentario(); 
                 asignarDatosResultSet(comentarios, resultSet, 0);
                 pComentarios.add(comentarios);
             }
@@ -106,13 +106,13 @@ public class comentariosDAL {
         }
     }
     
-    public static comentario obtenerPorId(comentario pComentario) throws Exception {
-        comentario comentario = new comentario();
-        ArrayList<comentario> comentarios = new ArrayList();
-        try (Connection conn = comunBD.obtenerConexion();) { 
+    public static Comentario obtenerPorId(Comentario pComentario) throws Exception {
+        Comentario comentario = new Comentario();
+        ArrayList<Comentario> comentarios = new ArrayList();
+        try (Connection conn = ComunBD.obtenerConexion();) { 
             String sql = obtenerSelect(pComentario);
             sql += " WHERE r.Id=?";
-            try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
+            try (PreparedStatement ps = ComunBD.createPreparedStatement(conn, sql);) {
                 ps.setInt(1, pComentario.getId());
                 obtenerDatos(ps, comentarios);
                 ps.close();
@@ -132,12 +132,12 @@ public class comentariosDAL {
         return comentario;
     }
     
-    public static ArrayList<comentario> obtenerTodos() throws Exception {
-        ArrayList<comentario> comentarios = new ArrayList<>();
-        try (Connection conn = comunBD.obtenerConexion();) {
-            String sql = obtenerSelect(new comentario());
-            sql += agregarOrderBy(new comentario());
-            try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
+    public static ArrayList<Comentario> obtenerTodos() throws Exception {
+        ArrayList<Comentario> comentarios = new ArrayList<>();
+        try (Connection conn = ComunBD.obtenerConexion();) {
+            String sql = obtenerSelect(new Comentario());
+            sql += agregarOrderBy(new Comentario());
+            try (PreparedStatement ps = ComunBD.createPreparedStatement(conn, sql);) {
                 obtenerDatos(ps, comentarios);
                 ps.close();
             } catch (SQLException ex) {
@@ -152,7 +152,7 @@ public class comentariosDAL {
         return comentarios;
     }
     
-    static void querySelect(comentario pComentario, comunBD.utilQuery pUtilQuery) throws SQLException {
+    static void querySelect(Comentario pComentario, ComunBD.utilQuery pUtilQuery) throws SQLException {
         PreparedStatement statement = pUtilQuery.getStatement();
         if (pComentario.getId() > 0) {
             pUtilQuery.AgregarNumWhere(" r.Id=? ");
@@ -169,16 +169,16 @@ public class comentariosDAL {
         }
     }
     
-    public static ArrayList<comentario> buscar(comentario pComentario) throws Exception {
-        ArrayList<comentario> comentarios = new ArrayList();
-        try (Connection conn = comunBD.obtenerConexion();) {
+    public static ArrayList<Comentario> buscar(Comentario pComentario) throws Exception {
+        ArrayList<Comentario> comentarios = new ArrayList();
+        try (Connection conn = ComunBD.obtenerConexion();) {
             String sql = obtenerSelect(pComentario);
-            comunBD comundb = new comunBD();
-            comunBD.utilQuery utilQuery = comundb.new utilQuery(sql, null, 0); 
+            ComunBD comundb = new ComunBD();
+            ComunBD.utilQuery utilQuery = comundb.new utilQuery(sql, null, 0); 
             querySelect(pComentario, utilQuery);
             sql = utilQuery.getSQL(); 
             sql += agregarOrderBy(pComentario);
-            try (PreparedStatement ps = comunBD.createPreparedStatement(conn, sql);) {
+            try (PreparedStatement ps = ComunBD.createPreparedStatement(conn, sql);) {
                 utilQuery.setStatement(ps);
                 utilQuery.setSQL(null);
                 utilQuery.setNumWhere(0); 
@@ -196,4 +196,3 @@ public class comentariosDAL {
         return comentarios;
     }
 }
-

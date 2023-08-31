@@ -9,18 +9,18 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 import java.util.ArrayList;
-import webjava.accesoadatos.rolDAL;
-import webjava.accesoadatos.usuariosDAL;
+import webjava.accesoadatos.RolDAL;
+import webjava.accesoadatos.UsuarioDAL;
 import webjava.appweb.utils.*;
-import webjava.entidadesdenegocio.rol;
-import webjava.entidadesdenegocio.usuarios;
+import webjava.entidadesdenegocio.Rol;
+import webjava.entidadesdenegocio.Usuario;
 
 @WebServlet(name = "usuariosServlet", urlPatterns = {"/usuarios"})
 public class usuariosServlet extends HttpServlet {
       
-     private usuarios obtenerUsuarios(HttpServletRequest request) {
+     private Usuario obtenerUsuarios(HttpServletRequest request) {
         String accion = Utilidad.getParameter(request, "accion", "index");
-        usuarios usuario = new usuarios();
+        Usuario usuario = new Usuario();
         usuario.setNombre(Utilidad.getParameter(request, "nombre", ""));
         usuario.setApellido(Utilidad.getParameter(request, "apellido", ""));
         usuario.setLogin(Utilidad.getParameter(request, "login", ""));
@@ -47,9 +47,9 @@ public class usuariosServlet extends HttpServlet {
      
      private void doGetRequestIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            usuarios usuario = new usuarios();
+            Usuario usuario = new Usuario();
             usuario.setTop_aux(10);
-            ArrayList<usuarios> usuarios = usuariosDAL.buscarIncluirRol(usuario);
+            ArrayList<Usuario> usuarios = UsuarioDAL.buscarIncluirRol(usuario);
             request.setAttribute("usuarios", usuarios);
             request.setAttribute("top_aux", usuario.getTop_aux());
             request.getRequestDispatcher("views/usuarios/index.jsp").forward(request, response);
@@ -60,8 +60,8 @@ public class usuariosServlet extends HttpServlet {
      
      private void doPostRequestIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            usuarios usuario = obtenerUsuarios(request);
-            ArrayList<usuarios> usuarios = usuariosDAL.buscarIncluirRol(usuario);
+            Usuario usuario = obtenerUsuarios(request);
+            ArrayList<Usuario> usuarios = UsuarioDAL.buscarIncluirRol(usuario);
             request.setAttribute("usuarios", usuarios);
             request.setAttribute("top_aux", usuario.getTop_aux());
             request.getRequestDispatcher("views/usuarios/index.jsp").forward(request, response);
@@ -76,8 +76,8 @@ public class usuariosServlet extends HttpServlet {
 
     private void doPostRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            usuarios usuario = obtenerUsuarios(request);
-            int result = usuariosDAL.crear(usuario);
+            Usuario usuario = obtenerUsuarios(request);
+            int result = UsuarioDAL.crear(usuario);
             if (result != 0) {
                 request.setAttribute("accion", "index");
                 doGetRequestIndex(request, response);
@@ -91,12 +91,12 @@ public class usuariosServlet extends HttpServlet {
     
      private void requestObtenerPorId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            usuarios usuario = obtenerUsuarios(request);
-            usuarios usuario_result = usuariosDAL.obtenerPorId(usuario);
+            Usuario usuario = obtenerUsuarios(request);
+            Usuario usuario_result = UsuarioDAL.obtenerPorId(usuario);
             if (usuario_result.getId() > 0) {
-                rol rol = new rol();
+                Rol rol = new Rol();
                 rol.setId(usuario_result.getRolid());
-                usuario_result.setRol(rolDAL.obtenerPorId(rol));
+                usuario_result.setRol(RolDAL.obtenerPorId(rol));
                 request.setAttribute("usuario", usuario_result);
             } else {
                 Utilidad.enviarError("El Id:" + usuario_result.getId() + " no existe en la tabla de Usuario", request, response);
@@ -113,8 +113,8 @@ public class usuariosServlet extends HttpServlet {
 
     private void doPostRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            usuarios usuario = obtenerUsuarios(request);
-            int result = usuariosDAL.modificar(usuario);
+            Usuario usuario = obtenerUsuarios(request);
+            int result = UsuarioDAL.modificar(usuario);
             if (result != 0) {
                 request.setAttribute("accion", "index");
                 doGetRequestIndex(request, response);
@@ -138,8 +138,8 @@ public class usuariosServlet extends HttpServlet {
     
       private void doPostRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            usuarios usuario = obtenerUsuarios(request);
-            int result = usuariosDAL.eliminar(usuario);
+            Usuario usuario = obtenerUsuarios(request);
+            int result = UsuarioDAL.eliminar(usuario);
             if (result != 0) {
                 request.setAttribute("accion", "index");
                 doGetRequestIndex(request, response);
@@ -158,12 +158,12 @@ public class usuariosServlet extends HttpServlet {
     
     private void doPostRequestLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            usuarios usuario = obtenerUsuarios(request);
-            usuarios usuario_auth = usuariosDAL.login(usuario);
+            Usuario usuario = obtenerUsuarios(request);
+            Usuario usuario_auth = UsuarioDAL.login(usuario);
             if (usuario_auth.getId() != 0 && usuario_auth.getLogin().equals(usuario.getLogin())) {
-                rol rol = new rol();
+                Rol rol = new Rol();
                 rol.setId(usuario_auth.getRolid());
-                usuario_auth.setRol(rolDAL.obtenerPorId(rol));
+                usuario_auth.setRol(RolDAL.obtenerPorId(rol));
                 SessionUser.autenticarUser(request, usuario_auth);
                 response.sendRedirect("Home");
             } else {
@@ -178,9 +178,9 @@ public class usuariosServlet extends HttpServlet {
 
     private void doGetRequestCambiarPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            usuarios usuario = new usuarios();
+            Usuario usuario = new Usuario();
             usuario.setLogin(SessionUser.getUser(request)); 
-            usuarios usuario_result = usuariosDAL.buscar(usuario).get(0);
+            Usuario usuario_result = UsuarioDAL.buscar(usuario).get(0);
             if (usuario_result.getId() > 0) {
                 request.setAttribute("usuario", usuario_result);
                 request.getRequestDispatcher("views/usuarios/cambiarPassword.jsp").forward(request, response);
@@ -194,9 +194,9 @@ public class usuariosServlet extends HttpServlet {
     
     private void doPostRequestCambiarPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            usuarios usuario = obtenerUsuarios(request);
+            Usuario usuario = obtenerUsuarios(request);
             String passActual = Utilidad.getParameter(request, "passwordActual", "");
-            int result = usuariosDAL.cambiarPassword(usuario, passActual);
+            int result = UsuarioDAL.cambiarPassword(usuario, passActual);
             if (result != 0) {
                 response.sendRedirect("Usuario?accion=login");
             } else {

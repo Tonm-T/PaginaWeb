@@ -7,18 +7,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import webjava.accesoadatos.comentariosDAL;
+import webjava.accesoadatos.ComentarioDAL;
 import webjava.appweb.utils.SessionUser;
 import webjava.appweb.utils.Utilidad;
-import webjava.entidadesdenegocio.comentario;
+import webjava.entidadesdenegocio.Comentario;
 
 
 @WebServlet(name = "comentariosServlet", urlPatterns = {"/comentarios"})
 public class comentariosServlet extends HttpServlet {
     
-    private comentario obtenerComentarios(HttpServletRequest request) {
+    private Comentario obtenerComentarios(HttpServletRequest request) {
     String accion = Utilidad.getParameter(request, "accion", "index");
-    comentario Comentario = new comentario();
+    Comentario Comentario = new Comentario();
     if (accion.equals("create") == false) {
         Comentario.setId(Integer.parseInt(Utilidad.getParameter(request, "id", "0")));
     }
@@ -33,9 +33,9 @@ public class comentariosServlet extends HttpServlet {
     
    private void doGetRequestIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            comentario Comentario = new comentario();
+            Comentario Comentario = new Comentario();
             Comentario.setTop_aux(10);
-            ArrayList<comentario> comentarios = comentariosDAL.buscar(Comentario);
+            ArrayList<Comentario> comentarios = ComentarioDAL.buscar(Comentario);
             request.setAttribute("comentarios", comentarios);
             request.setAttribute("top_aux", Comentario.getTop_aux());             
             request.getRequestDispatcher("Views/comentario/index.jsp").forward(request, response);
@@ -46,8 +46,8 @@ public class comentariosServlet extends HttpServlet {
     
     private void doPostRequestIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            comentario Comentario = obtenerComentarios(request);
-            ArrayList<comentario> comentario = comentariosDAL.buscar(Comentario);
+            Comentario Comentario = obtenerComentarios(request);
+            ArrayList<Comentario> comentario = ComentarioDAL.buscar(Comentario);
             request.setAttribute("comentario", comentario);
             request.setAttribute("top_aux", Comentario.getTop_aux());
             request.getRequestDispatcher("Views/comentario/index.jsp").forward(request, response);
@@ -62,8 +62,8 @@ public class comentariosServlet extends HttpServlet {
     
     private void doPostRequestCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            comentario Comentario = obtenerComentarios(request);
-            int result = comentariosDAL.crear(Comentario);
+            Comentario Comentario = obtenerComentarios(request);
+            int result = ComentarioDAL.crear(Comentario);
             if (result != 0) {
                 request.setAttribute("accion", "index");
                 doGetRequestIndex(request, response);
@@ -77,8 +77,8 @@ public class comentariosServlet extends HttpServlet {
     
     private void requestObtenerPorId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            comentario Comentario = obtenerComentarios(request);
-            comentario comentario_result = comentariosDAL.obtenerPorId(Comentario);
+            Comentario Comentario = obtenerComentarios(request);
+            Comentario comentario_result = ComentarioDAL.obtenerPorId(Comentario);
             if (comentario_result.getId() > 0) {
                 request.setAttribute("comentario", comentario_result);
             } else {
@@ -96,8 +96,8 @@ public class comentariosServlet extends HttpServlet {
     
     private void doPostRequestEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            comentario Comentario = obtenerComentarios(request);
-            int result = comentariosDAL.modificar(Comentario);
+            Comentario Comentario = obtenerComentarios(request);
+            int result = ComentarioDAL.modificar(Comentario);
             if (result != 0) {
                 request.setAttribute("accion", "index");
                 doGetRequestIndex(request, response);
@@ -122,8 +122,8 @@ public class comentariosServlet extends HttpServlet {
     
      private void doPostRequestDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            comentario Comentario = obtenerComentarios(request);
-            int result = comentariosDAL.eliminar(Comentario);
+            Comentario Comentario = obtenerComentarios(request);
+            int result = ComentarioDAL.eliminar(Comentario);
             if (result != 0) {
                 request.setAttribute("accion", "index");
                 doGetRequestIndex(request, response);
