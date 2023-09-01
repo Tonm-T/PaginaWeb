@@ -21,19 +21,15 @@
                   <span class="ml-3 text-xl">ShowMe</span>
                 </a>
                 <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-                  <a class="mr-5 hover:text-gray-900 ">Categorias 
-                  </a>
-                  <a class="mr-5 hover:text-gray-900" href="comentarios">Comentarios</a>
-                  <a class="mr-5 hover:text-gray-900">Blogs</a>
-                  <a class="mr-5 hover:text-gray-900">Historietas</a>
-                  <a class="mr-5 hover:text-gray-900">Roles</a>
-                  <a class="mr-5 hover:text-gray-900">Usuarios</a>
+                <a class="mr-5 hover:text-gray-900" href="index.jsp">Home</a>
+                  <a class="mr-5 hover:text-gray-900" href="views/categorias">Categorias</a>
+                  <a class="mr-5 hover:text-gray-900" href="views/comentarios">Comentarios</a>
+                  <a class="mr-5 hover:text-gray-900" href="views/blogs">Blogs</a>
+                  <a class="mr-5 hover:text-gray-900" href="views/historietas">Historietas</a>
+                  <a class="mr-5 hover:text-gray-900" href="views/rol">Roles</a>
+                  <a class="mr-5 hover:text-gray-900" href="views/usuarios">Usuarios</a>
+                  <a class="mr-5 hover:text-gray-900" href="usuarios?accion=login">Login</a>
                 </nav>
-                <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Catalogo
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                  </svg>
-                </button>
               </div>
             </header>
 </html>

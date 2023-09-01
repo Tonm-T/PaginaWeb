@@ -1,5 +1,4 @@
 package webjava.accesoadatos;
-
 import java.util.*;
 import java.sql.*;
 import webjava.entidadesdenegocio.*;
